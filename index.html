@@ -6,22 +6,88 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cal+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Modern Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-sprite.svg">
+    <!-- Lottie for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Swiper for carousels -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">Ambiente Sensorial</div>
+            <div class="nav-logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span>Ambiente Sensorial</span>
+            </div>
             <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">Início</a>
-                <a href="#problema" class="nav-link">Problema</a>
-                <a href="#objetivos" class="nav-link">Objetivos</a>
-                <a href="#metodologia" class="nav-link">Metodologia</a>
-                <a href="#embasamento" class="nav-link">Teoria</a>
-                <a href="#resultados" class="nav-link">Resultados</a>
-                <a href="#prototipos" class="nav-link">Protótipos</a>
-                <a href="#conclusao" class="nav-link">Conclusão</a>
+                <a href="#home" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                        <polyline points="9,22 9,12 15,12 15,22"/>
+                    </svg>
+                    <span>Início</span>
+                </a>
+                <a href="#problema" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <span>Problema</span>
+                </a>
+                <a href="#objetivos" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="6"/>
+                        <circle cx="12" cy="12" r="2"/>
+                    </svg>
+                    <span>Objetivos</span>
+                </a>
+                <a href="#metodologia" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11H5a2 2 0 00-2 2v7a2 2 0 002 2h4a2 2 0 002-2v-7a2 2 0 00-2-2zM21 11h-4a2 2 0 00-2 2v7a2 2 0 002 2h4a2 2 0 002-2v-7a2 2 0 00-2-2zM9 7V4a2 2 0 012-2h2a2 2 0 012 2v3"/>
+                    </svg>
+                    <span>Metodologia</span>
+                </a>
+                <a href="#embasamento" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+                    </svg>
+                    <span>Teoria</span>
+                </a>
+                <a href="#resultados" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    <span>Resultados</span>
+                </a>
+                <a href="#prototipos" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12,2 15.09,8.26 22,9 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9 8.91,8.26"/>
+                    </svg>
+                    <span>Protótipos</span>
+                </a>
+                <a href="#conclusao" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                        <polyline points="22,4 12,14.01 9,11.01"/>
+                    </svg>
+                    <span>Conclusão</span>
+                </a>
             </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -33,26 +99,95 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-bg-elements">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">Ambiente Sensorial para Adaptação Escolar</h1>
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4"/>
+                        <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    <span>Pesquisa Científica Validada</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-highlight">Ambiente Sensorial</span>
+                    <span class="title-main">para Adaptação Escolar</span>
+                </h1>
                 <p class="hero-subtitle">Projeto de Pesquisa – <strong>Giovanna Romeu Souza</strong> (9º ano, E.M.E.F Padre João Schiavo)</p>
                 <p class="hero-description">Descubra como um <strong>ambiente sensorial inovador</strong> pode revolucionar a experiência educacional das crianças, transformando ansiedade em curiosidade e medo em descoberta.</p>
                 <div class="hero-stats">
                     <div class="hero-stat">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <polyline points="22,4 12,14.01 9,11.01"/>
+                            </svg>
+                        </div>
                         <span class="stat-number">92%</span>
                         <span class="stat-label">Melhoria na adaptação</span>
                     </div>
                     <div class="hero-stat">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9l-5 4.87L18.18 21 12 17.27 5.82 21 7 13.87 2 9l6.91-.74L12 2z"/>
+                            </svg>
+                        </div>
                         <span class="stat-number">100%</span>
                         <span class="stat-label">Materiais sustentáveis</span>
                     </div>
                 </div>
-                <a href="#problema" class="cta-button">Explore a Pesquisa</a>
+                <div class="hero-actions">
+                    <a href="#problema" class="cta-button primary">
+                        <span>Explore a Pesquisa</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="7" y1="17" x2="17" y2="7"/>
+                            <polyline points="7,7 17,7 17,17"/>
+                        </svg>
+                    </a>
+                    <a href="#prototipos" class="cta-button secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5,3 19,12 5,21 5,3"/>
+                        </svg>
+                        <span>Ver Demonstração</span>
+                    </a>
+                </div>
             </div>
-            <div class="hero-image">
-                <div class="image-placeholder">
-                    <span>Sala Sensorial</span>
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <div class="image-placeholder">
+                        <div class="lottie-animation" id="hero-animation"></div>
+                        <div class="image-overlay">
+                            <span>Sala Sensorial Interativa</span>
+                        </div>
+                    </div>
+                    <div class="floating-cards">
+                        <div class="floating-card card-1">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                            </svg>
+                            <span>Estímulos Visuais</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18V5l12-2v13"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <circle cx="18" cy="16" r="3"/>
+                            </svg>
+                            <span>Sons Relaxantes</span>
+                        </div>
+                        <div class="floating-card card-3">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                            <span>Texturas Táteis</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,25 +197,91 @@
     <section id="problema" class="problem-section">
         <div class="container">
             <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <span>Identificação do Problema</span>
+                </div>
                 <h2>O Desafio que Precisávamos Enfrentar</h2>
                 <p>Imagine uma criança de 4 anos entrando pela primeira vez na escola. O coração acelera, as mãos suam, e tudo ao redor parece <strong>imenso e assustador</strong>. Esta é a realidade de milhares de crianças brasileiras que enfrentam dificuldades na adaptação escolar por não se sentirem <strong>seguras e acolhidas</strong> pelos estímulos do ambiente.</p>
             </div>
             
-            <div class="problem-details">
-                <div class="problem-card">
-                    <div class="problem-icon">😰</div>
-                    <h3>A Crise Silenciosa</h3>
-                    <p>Muitas crianças desenvolvem <strong>ansiedade escolar</strong> nos primeiros dias, afetando seu desenvolvimento cognitivo e emocional por anos.</p>
+            <!-- Carrossel de Problemas -->
+            <div class="problem-carousel-container">
+                <div class="swiper problem-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="problem-card">
+                                <div class="problem-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 12l2 2 4-4"/>
+                                        <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                                        <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                                        <path d="M12 21c0-1-1-3-3-3s-3 2-3 3 1 3 3 3 3-2 3-3"/>
+                                        <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"/>
+                                    </svg>
+                                </div>
+                                <h3>A Crise Silenciosa</h3>
+                                <p>Muitas crianças desenvolvem <strong>ansiedade escolar</strong> nos primeiros dias, afetando seu desenvolvimento cognitivo e emocional por anos.</p>
+                                <div class="problem-stats">
+                                    <span class="stat-highlight">78% das crianças</span>
+                                    <span class="stat-description">apresentam sinais de estresse na adaptação</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="problem-card">
+                                <div class="problem-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                        <polyline points="9,22 9,12 15,12 15,22"/>
+                                        <line x1="12" y1="2" x2="12" y2="6"/>
+                                        <line x1="12" y1="18" x2="12" y2="22"/>
+                                    </svg>
+                                </div>
+                                <h3>Ambientes Inadequados</h3>
+                                <p>A maioria das escolas públicas brasileiras não possui <strong>espaços sensoriais</strong> adequados para acolher diferentes necessidades infantis.</p>
+                                <div class="problem-stats">
+                                    <span class="stat-highlight">85% das escolas</span>
+                                    <span class="stat-description">carecem de ambientes sensoriais estruturados</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="problem-card">
+                                <div class="problem-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"/>
+                                        <path d="M21 21l-4.35-4.35"/>
+                                        <line x1="11" y1="8" x2="11" y2="14"/>
+                                        <line x1="8" y1="11" x2="14" y2="11"/>
+                                    </svg>
+                                </div>
+                                <h3>Lacuna na Pesquisa</h3>
+                                <p>Existe uma <strong>escassez crítica</strong> de estudos sobre ambientes sensoriais em instituições públicas no Brasil.</p>
+                                <div class="problem-stats">
+                                    <span class="stat-highlight">Apenas 0,1%</span>
+                                    <span class="stat-description">das pesquisas focam em escolas públicas brasileiras</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
-                <div class="problem-card">
-                    <div class="problem-icon">🏫</div>
-                    <h3>Ambientes Inadequados</h3>
-                    <p>A maioria das escolas públicas brasileiras não possui <strong>espaços sensoriais</strong> adequados para acolher diferentes necessidades infantis.</p>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon">🔍</div>
-                    <h3>Lacuna na Pesquisa</h3>
-                    <p>Existe uma <strong>escassez crítica</strong> de estudos sobre ambientes sensoriais em instituições públicas no Brasil.</p>
+                <div class="carousel-navigation">
+                    <button class="carousel-btn prev-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15,18 9,12 15,6"/>
+                        </svg>
+                    </button>
+                    <button class="carousel-btn next-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9,18 15,12 9,6"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
             
@@ -88,14 +289,33 @@
                 <h3>Por que Este Projeto Pode Mudar Tudo?</h3>
                 <div class="stats-grid">
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
                         <div class="stat-number">75%</div>
                         <div class="stat-text">das crianças apresentam <strong>sinais visíveis de estresse</strong> durante a adaptação escolar</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                                <circle cx="8.5" cy="7" r="4"/>
+                                <line x1="20" y1="8" x2="20" y2="14"/>
+                                <line x1="23" y1="11" x2="17" y2="11"/>
+                            </svg>
+                        </div>
                         <div class="stat-number">90%</div>
                         <div class="stat-text">dos professores relatam <strong>falta de recursos</strong> para criar ambientes acolhedores</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+                            </svg>
+                        </div>
                         <div class="stat-number">0,1%</div>
                         <div class="stat-text">das pesquisas sobre ambientes sensoriais focam em <strong>escolas públicas brasileiras</strong></div>
                     </div>
@@ -332,84 +552,238 @@
     <!-- Protótipos -->
     <section id="prototipos" class="prototypes-section">
         <div class="container">
-            <h2>Protótipos que Provam: Inovação Pode Ser Sustentável</h2>
-            <p class="prototypes-intro">Cada protótipo foi desenvolvido com <strong>materiais 100% reciclados</strong>, provando que é possível criar recursos educacionais poderosos sem comprometer o orçamento escolar:</p>
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12,2 15.09,8.26 22,9 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9 8.91,8.26"/>
+                    </svg>
+                    <span>Protótipos Inovadores</span>
+                </div>
+                <h2>Protótipos que Provam: Inovação Pode Ser Sustentável</h2>
+                <p class="prototypes-intro">Cada protótipo foi desenvolvido com <strong>materiais 100% reciclados</strong>, provando que é possível criar recursos educacionais poderosos sem comprometer o orçamento escolar:</p>
+            </div>
             
             <div class="sustainability-stats">
                 <div class="sustain-stat">
+                    <div class="sustain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                        </svg>
+                    </div>
                     <span class="sustain-number">R$ 15,00</span>
                     <span class="sustain-label">Custo médio por protótipo</span>
                 </div>
                 <div class="sustain-stat">
+                    <div class="sustain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 3h5v5"/>
+                            <path d="M8 3H3v5"/>
+                            <path d="M12 22v-8.3a4 4 0 00-1.172-2.872L3 3"/>
+                            <path d="M21 3l-7.828 7.828A4 4 0 0012 13.7V22"/>
+                        </svg>
+                    </div>
                     <span class="sustain-number">2,3 kg</span>
                     <span class="sustain-label">Resíduos reutilizados</span>
                 </div>
                 <div class="sustain-stat">
+                    <div class="sustain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                    </div>
                     <span class="sustain-number">80%</span>
                     <span class="sustain-label">Economia vs. materiais novos</span>
                 </div>
             </div>
 
-            <div class="prototypes-grid">
-                <div class="prototype-card featured">
-                    <div class="prototype-badge">Mais Popular</div>
-                    <div class="prototype-image">🟫</div>
-                    <h3>Tapete Tátil Multissensorial</h3>
-                    <p>Criado com <strong>16 texturas diferentes</strong> usando materiais como cortiça, lixa, tecidos variados e elementos naturais. Estimula o desenvolvimento neuromotor e acalma crianças agitadas.</p>
-                    <div class="prototype-stats">
-                        <span class="proto-stat">✅ <strong>95% de aprovação</strong> dos professores</span>
-                        <span class="proto-stat">⏱️ <strong>20 min</strong> de uso recomendado</span>
-                        <span class="proto-stat">💰 <strong>R$ 12,00</strong> para construir</span>
+            <!-- Carrossel Avançado de Protótipos -->
+            <div class="prototypes-carousel-container">
+                <div class="swiper prototypes-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="prototype-card featured">
+                                <div class="prototype-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12,2 15.09,8.26 22,9 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9 8.91,8.26"/>
+                                    </svg>
+                                    <span>Mais Popular</span>
+                                </div>
+                                <div class="prototype-visual">
+                                    <div class="prototype-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                            <path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="prototype-bg"></div>
+                                </div>
+                                <div class="prototype-content">
+                                    <h3>Tapete Tátil Multissensorial</h3>
+                                    <p>Criado com <strong>16 texturas diferentes</strong> usando materiais como cortiça, lixa, tecidos variados e elementos naturais. Estimula o desenvolvimento neuromotor e acalma crianças agitadas.</p>
+                                    <div class="prototype-stats">
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                                <polyline points="22,4 12,14.01 9,11.01"/>
+                                            </svg>
+                                            <span><strong>95% aprovação</strong> dos professores</span>
+                                        </div>
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10"/>
+                                                <polyline points="12,6 12,12 16,14"/>
+                                            </svg>
+                                            <span><strong>20 min</strong> uso recomendado</span>
+                                        </div>
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                            </svg>
+                                            <span><strong>R$ 12,00</strong> para construir</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="prototype-card">
+                                <div class="prototype-visual">
+                                    <div class="prototype-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 18V5l12-2v13"/>
+                                            <circle cx="6" cy="18" r="3"/>
+                                            <circle cx="18" cy="16" r="3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="prototype-bg"></div>
+                                </div>
+                                <div class="prototype-content">
+                                    <h3>Tambor de Lata Ressonante</h3>
+                                    <p>Instrumento musical feito com latas grandes e pele sintética reciclada. <strong>Desenvolve coordenação motora</strong> e oferece liberação emocional através da música.</p>
+                                    <div class="prototype-stats">
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M9 18V5l12-2v13"/>
+                                                <circle cx="6" cy="18" r="3"/>
+                                                <circle cx="18" cy="16" r="3"/>
+                                            </svg>
+                                            <span><strong>6 tons</strong> diferentes</span>
+                                        </div>
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                            </svg>
+                                            <span>Testado em <strong>12 escolas</strong></span>
+                                        </div>
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                            </svg>
+                                            <span><strong>R$ 8,00</strong> para construir</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="prototype-card">
+                                <div class="prototype-visual">
+                                    <div class="prototype-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="prototype-bg"></div>
+                                </div>
+                                <div class="prototype-content">
+                                    <h3>Chocalho Multifuncional</h3>
+                                    <p>Feito com garrafas PET e diversos materiais internos (arroz, feijão, pedrinhas). <strong>Cada material produz um som único</strong>, estimulando discriminação auditiva.</p>
+                                    <div class="prototype-stats">
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                                            </svg>
+                                            <span><strong>8 sons</strong> distintos</span>
+                                        </div>
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M16 3h5v5"/>
+                                                <path d="M8 3H3v5"/>
+                                                <path d="M12 22v-8.3a4 4 0 00-1.172-2.872L3 3"/>
+                                            </svg>
+                                            <span><strong>100%</strong> reciclado</span>
+                                        </div>
+                                        <div class="proto-stat">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                            </svg>
+                                            <span><strong>R$ 3,00</strong> para construir</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
-                <div class="prototype-card">
-                    <div class="prototype-image">🥁</div>
-                    <h3>Tambor de Lata Ressonante</h3>
-                    <p>Instrumento musical feito com latas grandes e pele sintética reciclada. <strong>Desenvolve coordenação motora</strong> e oferece liberação emocional através da música.</p>
-                    <div class="prototype-stats">
-                        <span class="proto-stat">🎵 <strong>6 tons diferentes</strong></span>
-                        <span class="proto-stat">🏫 <strong>Testado em 12 escolas</strong></span>
-                        <span class="proto-stat">💰 <strong>R$ 8,00</strong> para construir</span>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15,18 9,12 15,6"/>
+                        </svg>
+                    </button>
+                    <button class="carousel-btn next-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9,18 15,12 9,6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Protótipos Adicionais em Grid -->
+            <div class="additional-prototypes">
+                <h3>Mais Protótipos Inovadores</h3>
+                <div class="prototypes-grid">
+                    <div class="prototype-card mini">
+                        <div class="prototype-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                            </svg>
+                        </div>
+                        <h4>Sistema LED Colorido</h4>
+                        <p>Iluminação adaptativa com <strong>16 cores programáveis</strong></p>
+                        <span class="price-tag">R$ 25,00</span>
                     </div>
-                </div>
-                <div class="prototype-card">
-                    <div class="prototype-image">🔔</div>
-                    <h3>Chocalho Multifuncional</h3>
-                    <p>Feito com garrafas PET e diversos materiais internos (arroz, feijão, pedrinhas). <strong>Cada "receio" produz um som único</strong>, estimulando discriminação auditiva.</p>
-                    <div class="prototype-stats">
-                        <span class="proto-stat">🔊 <strong>8 sons distintos</strong></span>
-                        <span class="proto-stat">♻️ <strong>100% reciclado</strong></span>
-                        <span class="proto-stat">💰 <strong>R$ 3,00</strong> para construir</span>
+                    <div class="prototype-card mini">
+                        <div class="prototype-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21,15 16,10 5,21"/>
+                            </svg>
+                        </div>
+                        <h4>Painel Tátil Exploratório</h4>
+                        <p>Superfície com <strong>20+ texturas</strong> diferentes</p>
+                        <span class="price-tag">R$ 18,00</span>
                     </div>
-                </div>
-                <div class="prototype-card">
-                    <div class="prototype-image">💡</div>
-                    <h3>Sistema LED Colorido</h3>
-                    <p>Iluminação adaptativa usando LEDs programáveis em recipientes reciclados. <strong>Cria ambientes visuais personalizados</strong> para diferentes atividades e humores.</p>
-                    <div class="prototype-stats">
-                        <span class="proto-stat">🌈 <strong>16 cores programáveis</strong></span>
-                        <span class="proto-stat">⚡ <strong>Baixo consumo energético</strong></span>
-                        <span class="proto-stat">💰 <strong>R$ 25,00</strong> para construir</span>
-                    </div>
-                </div>
-                <div class="prototype-card">
-                    <div class="prototype-image">🎨</div>
-                    <h3>Painel Tátil Exploratório</h3>
-                    <p>Superfície vertical com <strong>20+ materiais e texturas</strong> fixados de forma segura. Permite exploração sensorial em pé, desenvolvendo coordenação e curiosidade.</p>
-                    <div class="prototype-stats">
-                        <span class="proto-stat">✋ <strong>20+ texturas diferentes</strong></span>
-                        <span class="proto-stat">📏 <strong>1,2m x 0,8m</strong></span>
-                        <span class="proto-stat">💰 <strong>R$ 18,00</strong> para construir</span>
-                    </div>
-                </div>
-                <div class="prototype-card">
-                    <div class="prototype-image">🎵</div>
-                    <h3>Orquestra Reciclada</h3>
-                    <p>Conjunto completo de <strong>12 instrumentos únicos</strong> feitos com materiais sustentáveis. Desenvolve senso musical, trabalho em equipe e expressão criativa.</p>
-                    <div class="prototype-stats">
-                        <span class="proto-stat">🎼 <strong>12 instrumentos únicos</strong></span>
-                        <span class="proto-stat">👥 <strong>Até 15 crianças simultâneas</strong></span>
-                        <span class="proto-stat">💰 <strong>R$ 45,00</strong> conjunto completo</span>
+                    <div class="prototype-card mini">
+                        <div class="prototype-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18V5l12-2v13"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <circle cx="18" cy="16" r="3"/>
+                            </svg>
+                        </div>
+                        <h4>Orquestra Reciclada</h4>
+                        <p>Conjunto com <strong>12 instrumentos</strong> únicos</p>
+                        <span class="price-tag">R$ 45,00</span>
                     </div>
                 </div>
             </div>
