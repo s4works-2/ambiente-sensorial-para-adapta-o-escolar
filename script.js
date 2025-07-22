@@ -1,41 +1,80 @@
-// Modern JavaScript - 2025 Edition
-// ================================
+// ========================================
+// MODERN JAVASCRIPT - 2025 EDITION
+// Advanced Sensory Environment Website
+// ========================================
 
-// Configuration
+// ===== CONFIGURATION =====
 const CONFIG = {
     animationDuration: 300,
     scrollOffset: 100,
     intersectionThreshold: 0.1,
-    debounceDelay: 16
+    debounceDelay: 16,
+    carouselAutoplay: 4000,
+    parallaxStrength: 0.3
 };
 
-// Utility Functions
-const debounce = (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
+// ===== UTILITY FUNCTIONS =====
+const Utils = {
+    // Modern debounce function
+    debounce(func, wait, immediate) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                if (!immediate) func(...args);
+            };
+            const callNow = immediate && !timeout;
             clearTimeout(timeout);
-            func(...args);
+            timeout = setTimeout(later, wait);
+            if (callNow) func(...args);
         };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-};
+    },
 
-const throttle = (func, limit) => {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
+    // Modern throttle function
+    throttle(func, limit) {
+        let inThrottle;
+        return function(...args) {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    },
+
+    // Smooth scroll to element
+    smoothScrollTo(element, offset = 0) {
+        if (!element) return;
+        const targetPosition = element.offsetTop - offset;
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    },
+
+    // Check if element is in viewport
+    isInViewport(element, threshold = 0.1) {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+        
+        return (
+            rect.top >= -threshold * windowHeight &&
+            rect.left >= -threshold * windowWidth &&
+            rect.bottom <= windowHeight + threshold * windowHeight &&
+            rect.right <= windowWidth + threshold * windowWidth
+        );
+    },
+
+    // Get scroll percentage
+    getScrollPercentage() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        return Math.min(scrollTop / scrollHeight, 1);
     }
 };
 
-// Modern Navigation with Enhanced UX
+// ===== MODERN NAVIGATION CLASS =====
 class ModernNavigation {
     constructor() {
         this.navbar = document.querySelector('.navbar');
@@ -44,6 +83,7 @@ class ModernNavigation {
         this.navLinks = document.querySelectorAll('.nav-link');
         this.lastScrollY = window.scrollY;
         this.isMenuOpen = false;
+        this.scrollThreshold = 100;
         
         this.init();
     }
@@ -52,16 +92,17 @@ class ModernNavigation {
         this.setupEventListeners();
         this.setupScrollBehavior();
         this.setupActiveStates();
+        this.createScrollIndicator();
     }
     
     setupEventListeners() {
-        // Hamburger menu toggle with animation
+        // Hamburger menu toggle
         this.hamburger?.addEventListener('click', (e) => {
             e.preventDefault();
             this.toggleMenu();
         });
         
-        // Smooth scrolling for navigation links
+        // Navigation links
         this.navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -69,7 +110,7 @@ class ModernNavigation {
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
-                    this.smoothScrollTo(targetElement);
+                    Utils.smoothScrollTo(targetElement, 100);
                     if (this.isMenuOpen) {
                         this.closeMenu();
                     }
@@ -77,7 +118,7 @@ class ModernNavigation {
             });
         });
         
-        // Close menu when clicking outside
+        // Close menu on outside click
         document.addEventListener('click', (e) => {
             if (this.isMenuOpen && !this.navbar.contains(e.target)) {
                 this.closeMenu();
@@ -93,17 +134,17 @@ class ModernNavigation {
     }
     
     setupScrollBehavior() {
-        const handleScroll = throttle(() => {
+        const handleScroll = Utils.throttle(() => {
             const currentScrollY = window.scrollY;
             
-            // Auto-hide navbar on scroll down, show on scroll up
-            if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
-                this.navbar.style.transform = 'translateY(-100%)';
+            // Auto-hide navbar
+            if (currentScrollY > this.lastScrollY && currentScrollY > this.scrollThreshold) {
+                this.hideNavbar();
             } else {
-                this.navbar.style.transform = 'translateY(0)';
+                this.showNavbar();
             }
             
-            // Add background blur when scrolled
+            // Add scrolled class
             if (currentScrollY > 50) {
                 this.navbar.classList.add('scrolled');
             } else {
@@ -111,455 +152,942 @@ class ModernNavigation {
             }
             
             this.lastScrollY = currentScrollY;
-        }, CONFIG.debounceDelay);
+            this.updateScrollIndicator();
+        }, 16);
         
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('scroll', handleScroll);
     }
     
     setupActiveStates() {
         const sections = document.querySelectorAll('section[id]');
-        
-        const updateActiveState = throttle(() => {
-            let currentSection = '';
-            
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= CONFIG.scrollOffset && rect.bottom > CONFIG.scrollOffset) {
-                    currentSection = section.getAttribute('id');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.updateActiveLink(entry.target.id);
                 }
             });
-            
-            this.navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSection}`) {
-                    link.classList.add('active');
-                }
-            });
-        }, CONFIG.debounceDelay);
+        }, {
+            threshold: 0.3,
+            rootMargin: '-100px 0px -100px 0px'
+        });
         
-        window.addEventListener('scroll', updateActiveState, { passive: true });
+        sections.forEach(section => observer.observe(section));
+    }
+    
+    createScrollIndicator() {
+        const indicator = document.createElement('div');
+        indicator.className = 'scroll-indicator';
+        indicator.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-600), var(--success-500));
+            z-index: 9999;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.1s ease;
+        `;
+        document.body.appendChild(indicator);
+        this.scrollIndicator = indicator;
+    }
+    
+    updateScrollIndicator() {
+        const progress = Utils.getScrollPercentage();
+        this.scrollIndicator.style.transform = `scaleX(${progress})`;
     }
     
     toggleMenu() {
-        if (this.isMenuOpen) {
-            this.closeMenu();
-        } else {
-            this.openMenu();
-        }
+        this.isMenuOpen ? this.closeMenu() : this.openMenu();
     }
     
     openMenu() {
-        this.navMenu.classList.add('active');
-        this.hamburger.classList.add('active');
-        this.hamburger.setAttribute('aria-expanded', 'true');
         this.isMenuOpen = true;
-        
-        // Prevent body scroll when menu is open
+        this.hamburger.classList.add('active');
+        this.navMenu.classList.add('active');
         document.body.style.overflow = 'hidden';
         
-        // Focus management
-        this.navLinks[0]?.focus();
+        // Animate menu items
+        gsap.fromTo('.nav-menu .nav-link', 
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.3, stagger: 0.1 }
+        );
     }
     
     closeMenu() {
-        this.navMenu.classList.remove('active');
-        this.hamburger.classList.remove('active');
-        this.hamburger.setAttribute('aria-expanded', 'false');
         this.isMenuOpen = false;
-        
-        // Restore body scroll
+        this.hamburger.classList.remove('active');
+        this.navMenu.classList.remove('active');
         document.body.style.overflow = '';
     }
     
-    smoothScrollTo(element) {
-        const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - 80;
-        
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
+    hideNavbar() {
+        this.navbar.classList.add('hidden');
+    }
+    
+    showNavbar() {
+        this.navbar.classList.remove('hidden');
+    }
+    
+    updateActiveLink(activeId) {
+        this.navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${activeId}`) {
+                link.classList.add('active');
+            }
         });
     }
 }
 
-// Enhanced Modal System
-class ModernModal {
+// ===== ADVANCED CAROUSEL MANAGER =====
+class CarouselManager {
     constructor() {
-        this.modal = document.getElementById('sense-modal');
-        this.modalBody = document.getElementById('modal-body');
-        this.closeButton = document.querySelector('.close');
-        this.senseCards = document.querySelectorAll('.sense-card');
-        
+        this.carousels = new Map();
         this.init();
     }
     
     init() {
-        this.setupEventListeners();
-        this.setupSenseData();
+        this.initProblemCarousel();
+        this.initPrototypesCarousel();
     }
     
-    setupEventListeners() {
-        // Open modal
-        this.senseCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                const senseType = card.getAttribute('data-sense');
-                this.openModal(senseType);
+    initProblemCarousel() {
+        const problemSwiper = new Swiper('.problem-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            centeredSlides: false,
+            loop: true,
+            autoplay: {
+                delay: CONFIG.carouselAutoplay,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            pagination: {
+                el: '.problem-swiper .swiper-pagination',
+                clickable: true,
+                dynamicBullets: true
+            },
+            navigation: {
+                nextEl: '.problem-carousel-container .next-btn',
+                prevEl: '.problem-carousel-container .prev-btn',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    centeredSlides: false
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    centeredSlides: false
+                }
+            },
+            effect: 'slide',
+            speed: 600,
+            on: {
+                slideChange: function() {
+                    this.slides.forEach((slide, index) => {
+                        const card = slide.querySelector('.problem-card');
+                        if (card) {
+                            if (index === this.activeIndex) {
+                                gsap.to(card, { scale: 1.02, duration: 0.3 });
+                            } else {
+                                gsap.to(card, { scale: 1, duration: 0.3 });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        
+        this.carousels.set('problem', problemSwiper);
+    }
+    
+    initPrototypesCarousel() {
+        const prototypesSwiper = new Swiper('.prototypes-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: CONFIG.carouselAutoplay + 1000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            pagination: {
+                el: '.prototypes-swiper .swiper-pagination',
+                clickable: true,
+                dynamicBullets: true
+            },
+            navigation: {
+                nextEl: '.prototypes-carousel-container .next-btn',
+                prevEl: '.prototypes-carousel-container .prev-btn',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    centeredSlides: false
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    centeredSlides: false
+                }
+            },
+            effect: 'coverflow',
+            coverflowEffect: {
+                rotate: 15,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true
+            },
+            speed: 800,
+            on: {
+                init: function() {
+                    this.slides.forEach(slide => {
+                        const card = slide.querySelector('.prototype-card');
+                        if (card) {
+                            card.addEventListener('mouseenter', () => {
+                                gsap.to(card, { 
+                                    rotationY: 5, 
+                                    rotationX: 2,
+                                    duration: 0.3,
+                                    ease: "power2.out"
+                                });
+                            });
+                            
+                            card.addEventListener('mouseleave', () => {
+                                gsap.to(card, { 
+                                    rotationY: 0, 
+                                    rotationX: 0,
+                                    duration: 0.3,
+                                    ease: "power2.out"
+                                });
+                            });
+                        }
+                    });
+                }
+            }
+        });
+        
+        this.carousels.set('prototypes', prototypesSwiper);
+    }
+    
+    pauseAll() {
+        this.carousels.forEach(carousel => {
+            if (carousel.autoplay) {
+                carousel.autoplay.pause();
+            }
+        });
+    }
+    
+    resumeAll() {
+        this.carousels.forEach(carousel => {
+            if (carousel.autoplay) {
+                carousel.autoplay.resume();
+            }
+        });
+    }
+}
+
+// ===== ADVANCED ANIMATION MANAGER =====
+class AnimationManager {
+    constructor() {
+        this.animations = [];
+        this.intersectionObserver = null;
+        this.init();
+    }
+    
+    init() {
+        this.setupGSAP();
+        this.setupScrollAnimations();
+        this.setupHeroAnimations();
+        this.setupFloatingElements();
+        this.setupParallaxEffects();
+    }
+    
+    setupGSAP() {
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Set default ease
+        gsap.defaults({
+            duration: 0.6,
+            ease: "power2.out"
+        });
+    }
+    
+    setupScrollAnimations() {
+        // Animate sections on scroll
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach((section, index) => {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
             });
             
-            // Keyboard accessibility
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    const senseType = card.getAttribute('data-sense');
-                    this.openModal(senseType);
+            // Section header animation
+            const header = section.querySelector('.section-header');
+            if (header) {
+                tl.fromTo(header.children, 
+                    { opacity: 0, y: 50 },
+                    { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 }
+                );
+            }
+            
+            // Cards animation
+            const cards = section.querySelectorAll('.problem-card, .stat-card, .prototype-card:not(.mini)');
+            if (cards.length > 0) {
+                tl.fromTo(cards,
+                    { opacity: 0, y: 30, scale: 0.95 },
+                    { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1 },
+                    "-=0.4"
+                );
+            }
+            
+            // Mini cards animation
+            const miniCards = section.querySelectorAll('.prototype-card.mini, .sustain-stat');
+            if (miniCards.length > 0) {
+                tl.fromTo(miniCards,
+                    { opacity: 0, scale: 0.8, rotation: -5 },
+                    { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1 },
+                    "-=0.3"
+                );
+            }
+        });
+    }
+    
+    setupHeroAnimations() {
+        const tl = gsap.timeline({ delay: 0.5 });
+        
+        // Hero badge
+        tl.fromTo('.hero-badge',
+            { opacity: 0, scale: 0.8, y: 20 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.6 }
+        );
+        
+        // Hero title
+        tl.fromTo('.hero-title',
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 0.8 },
+            "-=0.3"
+        );
+        
+        // Hero subtitle and description
+        tl.fromTo(['.hero-subtitle', '.hero-description'],
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.2 },
+            "-=0.4"
+        );
+        
+        // Hero stats
+        tl.fromTo('.hero-stat',
+            { opacity: 0, scale: 0.9, y: 20 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.1 },
+            "-=0.3"
+        );
+        
+        // Hero actions
+        tl.fromTo('.cta-button',
+            { opacity: 0, scale: 0.9 },
+            { opacity: 1, scale: 1, duration: 0.5, stagger: 0.1 },
+            "-=0.2"
+        );
+        
+        // Floating cards
+        tl.fromTo('.floating-card',
+            { opacity: 0, scale: 0.8, x: -20 },
+            { opacity: 1, scale: 1, x: 0, duration: 0.8, stagger: 0.3 },
+            "-=0.5"
+        );
+    }
+    
+    setupFloatingElements() {
+        // Floating shapes animation
+        const shapes = document.querySelectorAll('.floating-shape');
+        shapes.forEach((shape, index) => {
+            gsap.to(shape, {
+                y: "random(-20, 20)",
+                x: "random(-15, 15)",
+                rotation: "random(-10, 10)",
+                duration: "random(3, 6)",
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: index * 0.5
+            });
+        });
+        
+        // Floating cards animation
+        const floatingCards = document.querySelectorAll('.floating-card');
+        floatingCards.forEach((card, index) => {
+            gsap.to(card, {
+                y: "random(-15, 15)",
+                rotation: "random(-3, 3)",
+                duration: "random(2, 4)",
+                repeat: -1,
+                yoyo: true,
+                ease: "power2.inOut",
+                delay: index * 0.8
+            });
+        });
+    }
+    
+    setupParallaxEffects() {
+        // Hero parallax
+        gsap.to('.floating-shape', {
+            yPercent: -50,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+        
+        // Background elements parallax
+        const bgElements = document.querySelectorAll('.hero-bg-elements > *');
+        bgElements.forEach((element, index) => {
+            gsap.to(element, {
+                yPercent: -30 * (index + 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
                 }
             });
         });
+    }
+    
+    animateCounters() {
+        const counters = document.querySelectorAll('.stat-number');
         
-        // Close modal
-        this.closeButton?.addEventListener('click', () => this.closeModal());
-        
-        // Close on backdrop click
-        this.modal?.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
-                this.closeModal();
-            }
+        counters.forEach(counter => {
+            const target = parseInt(counter.textContent);
+            const isPercentage = counter.textContent.includes('%');
+            
+            ScrollTrigger.create({
+                trigger: counter,
+                start: "top 80%",
+                onEnter: () => {
+                    gsap.fromTo(counter, 
+                        { textContent: 0 },
+                        {
+                            textContent: target,
+                            duration: 2,
+                            ease: "power2.out",
+                            snap: { textContent: 1 },
+                            onUpdate: function() {
+                                const value = Math.round(this.targets()[0].textContent);
+                                counter.textContent = isPercentage ? `${value}%` : value;
+                            }
+                        }
+                    );
+                }
+            });
         });
-        
-        // Close on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal?.style.display === 'block') {
-                this.closeModal();
-            }
-        });
-    }
-    
-    setupSenseData() {
-        this.senseData = {
-            visao: {
-                title: 'Visão',
-                icon: '👁️',
-                description: 'A visão processa mais de 80% de todas as informações que recebemos do ambiente. Na educação infantil, estímulos visuais adequados podem reduzir a ansiedade em até 45% e melhorar a concentração das crianças.',
-                stimulation: [
-                    'Cores suaves e harmônicas para relaxamento profundo',
-                    'Luzes LED coloridas programáveis para diferentes atividades',
-                    'Objetos com formas geométricas variadas para estimular reconhecimento',
-                    'Contraste visual adequado (70% de diferença tonal recomendada)',
-                    'Elementos visuais organizados seguindo a regra dos terços',
-                    'Painéis com texturas visualmente contrastantes',
-                    'Móbiles com movimento suave para tracking visual'
-                ],
-                benefits: 'Melhora a concentração em 67%, reduz hiperestimulação visual e facilita o processamento de informações complexas.'
-            },
-            audicao: {
-                title: 'Audição',
-                icon: '👂',
-                description: 'O sistema auditivo é fundamental para o desenvolvimento da linguagem e está diretamente conectado ao sistema límbico (emocional). Sons adequados podem reduzir o cortisol (hormônio do estresse) em 38% nas crianças.',
-                stimulation: [
-                    'Música clássica em frequências de 432Hz para harmonia cerebral',
-                    'Sons da natureza (chuva, pássaros, oceano) para relaxamento',
-                    'Instrumentos musicais de diferentes timbres e frequências',
-                    'Controle rigoroso de ruídos externos (máximo 45 decibéis)',
-                    'Atividades de escuta ativa com identificação sonora',
-                    'Texturas sonoras variadas (sussurros, batidas rítmicas)',
-                    'Música binaural para sincronização cerebral'
-                ],
-                benefits: 'Desenvolve discriminação auditiva, melhora habilidades linguísticas em 52% e promove regulação emocional natural.'
-            },
-            olfato: {
-                title: 'Olfato',
-                icon: '👃',
-                description: 'O olfato é o único sentido conectado diretamente ao sistema límbico, processando emoções e memórias. Aromas específicos podem criar associações positivas duradouras com o ambiente escolar.',
-                stimulation: [
-                    'Aromas cítricos (laranja, limão) para energia e foco - 15 minutos',
-                    'Lavanda para relaxamento e redução de ansiedade - 10 minutos',
-                    'Plantas aromáticas naturais (hortelã, alecrim, manjericão)',
-                    'Ambientadores naturais sem químicos agressivos',
-                    'Atividades culinárias com ervas aromáticas',
-                    'Identificação de diferentes odores em recipientes seguros',
-                    'Sachês aromáticos com essências naturais rotativas'
-                ],
-                benefits: 'Reduz ansiedade em 43%, melhora memória afetiva e cria vínculos positivos com o ambiente educacional.'
-            },
-            tato: {
-                title: 'Tato',
-                icon: '✋',
-                description: 'O tato é o primeiro sentido a se desenvolver e possui mais terminações nervosas que qualquer outro. Estimulação tátil adequada ativa 87% das áreas cerebrais responsáveis pelo desenvolvimento cognitivo.',
-                stimulation: [
-                    'Tapetes com 12+ texturas diferentes (áspero, liso, rugoso, macio)',
-                    'Materiais naturais: madeira, pedras, areia, folhas secas',
-                    'Brinquedos táteis com diferentes temperaturas e densidades',
-                    'Massinha de modelar com texturas variadas',
-                    'Brincadeiras com água morna e areia cinética',
-                    'Tecidos com tramas diferentes (veludo, linho, seda)',
-                    'Esponjas naturais e sintéticas para discriminação'
-                ],
-                benefits: 'Desenvolve coordenação motora fina em 71%, melhora integração sensorial e reduz comportamentos estereotipados.'
-            },
-            paladar: {
-                title: 'Paladar',
-                icon: '👅',
-                description: 'O paladar trabalha em conjunto com o olfato (flavor) e está ligado à exploração e descoberta. Experiências gustativas seguras enriquecem o desenvolvimento multissensorial em 34%.',
-                stimulation: [
-                    'Degustação controlada de frutas da estação',
-                    'Identificação dos 5 sabores básicos: doce, salgado, azedo, amargo, umami',
-                    'Atividades culinárias educativas com medidas e texturas',
-                    'Exploração de diferentes temperaturas alimentares (morno, frio)',
-                    'Associação sabor-cor-aroma em atividades lúdicas',
-                    'Herbs garden: cultivo e degustação de ervas aromáticas',
-                    'Jogos sensoriais com alimentos seguros e conhecidos'
-                ],
-                benefits: 'Amplia repertório alimentar em 45%, desenvolve discriminação sensorial e estimula curiosidade exploratória natural.'
-            },
-            vestibular: {
-                title: 'Sistema Vestibular',
-                icon: '🔄',
-                description: 'O sistema vestibular controla equilíbrio, orientação espacial e coordenação. Sua estimulação adequada melhora a regulação comportamental em 89% das crianças com dificuldades de adaptação.',
-                stimulation: [
-                    'Balanços lineares suaves (frente-trás) por 5-10 minutos',
-                    'Movimentos rotatórios controlados em cadeiras giratórias',
-                    'Exercícios de equilíbrio em superfícies instáveis (almofadas)',
-                    'Caminhadas em diferentes elevações e texturas de solo',
-                    'Brincadeiras de rolar controlado em colchonetes macios',
-                    'Atividades de inversão corporal (de cabeça para baixo)',
-                    'Propriocepção: exercícios de consciência corporal no espaço'
-                ],
-                benefits: 'Melhora coordenação global em 78%, reduz hiperatividade e desenvolve consciência corporal e espacial.'
-            }
-        };
-    }
-    
-    openModal(senseType) {
-        const data = this.senseData[senseType];
-        if (!data) return;
-        
-        this.modalBody.innerHTML = `
-            <div class="sense-detail animate-on-scroll">
-                <div class="sense-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <span class="sense-modal-icon" style="font-size: 3rem;">${data.icon}</span>
-                    <h2 style="font-family: 'Cal Sans', sans-serif; font-size: 2rem; color: var(--primary-900); margin: 0;">${data.title}</h2>
-                </div>
-                <p class="sense-description" style="font-size: 1.1rem; color: var(--primary-600); line-height: 1.7; margin-bottom: 2rem;">${data.description}</p>
-                <h3 style="font-family: 'Cal Sans', sans-serif; color: var(--primary-900); margin-bottom: 1rem; font-size: 1.3rem;">Como estimular de forma científica:</h3>
-                <ul class="stimulation-list" style="list-style: none; padding: 0;">
-                    ${data.stimulation.map(item => `<li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; color: var(--primary-700); line-height: 1.6;"><span style="position: absolute; left: 0; top: 0;">🎯</span>${item}</li>`).join('')}
-                </ul>
-                <div class="sense-benefits" style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, var(--success-100), var(--success-50)); border-radius: 12px; border-left: 4px solid var(--success-600);">
-                    <h4 style="color: var(--success-600); margin-bottom: 1rem; font-family: 'Cal Sans', sans-serif;">🎯 Benefícios Comprovados:</h4>
-                    <p style="color: var(--success-700); font-size: 1rem; line-height: 1.5; margin: 0;"><strong>${data.benefits}</strong></p>
-                </div>
-            </div>
-        `;
-        
-        this.modal.style.display = 'block';
-        
-        // Focus management
-        setTimeout(() => {
-            this.closeButton?.focus();
-        }, 100);
-        
-        // Trigger animation
-        setTimeout(() => {
-            const animateElement = this.modalBody.querySelector('.animate-on-scroll');
-            animateElement?.classList.add('animate');
-        }, 50);
-    }
-    
-    closeModal() {
-        this.modal.style.display = 'none';
     }
 }
 
-// Enhanced Download System
-class DownloadSystem {
+// ===== INTERACTION MANAGER =====
+class InteractionManager {
     constructor() {
-        this.downloadButtons = document.querySelectorAll('.download-button');
         this.init();
     }
     
     init() {
-        this.setupEventListeners();
+        this.setupCardInteractions();
+        this.setupButtonEffects();
+        this.setupFormValidation();
+        this.setupKeyboardNavigation();
+        this.setupTouchGestures();
     }
     
-    setupEventListeners() {
-        this.downloadButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.simulateDownload(button);
+    setupCardInteractions() {
+        // Enhanced card hover effects
+        const cards = document.querySelectorAll('.problem-card, .stat-card, .prototype-card, .sustain-stat');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    scale: 1.03,
+                    rotationY: 2,
+                    rotationX: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+                
+                // Animate card elements
+                const icon = card.querySelector('.problem-icon, .stat-icon, .prototype-icon, .sustain-icon');
+                if (icon) {
+                    gsap.to(icon, {
+                        scale: 1.1,
+                        rotation: 5,
+                        duration: 0.3
+                    });
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    scale: 1,
+                    rotationY: 0,
+                    rotationX: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+                
+                const icon = card.querySelector('.problem-icon, .stat-icon, .prototype-icon, .sustain-icon');
+                if (icon) {
+                    gsap.to(icon, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.3
+                    });
+                }
+            });
+            
+            // Click ripple effect
+            card.addEventListener('click', (e) => {
+                this.createRippleEffect(e, card);
             });
         });
     }
     
-    async simulateDownload(button) {
-        const originalHTML = button.innerHTML;
-        button.disabled = true;
+    setupButtonEffects() {
+        const buttons = document.querySelectorAll('.cta-button, .carousel-btn');
         
-        // Step 1: Preparing
-        button.innerHTML = `
-            <span class="button-icon">⏳</span>
-            <div class="button-content">
-                <span class="button-title">Preparando seu download...</span>
-                <span class="button-subtitle">Verificando disponibilidade</span>
-            </div>
-        `;
-        
-        await this.delay(1500);
-        
-        // Step 2: Processing
-        button.innerHTML = `
-            <span class="button-icon">📦</span>
-            <div class="button-content">
-                <span class="button-title">Compactando arquivos...</span>
-                <span class="button-subtitle">Otimizando para download</span>
-            </div>
-        `;
-        
-        await this.delay(2000);
-        
-        // Step 3: Complete
-        button.innerHTML = `
-            <span class="button-icon">✅</span>
-            <div class="button-content">
-                <span class="button-title">Download iniciado!</span>
-                <span class="button-subtitle">Verifique sua pasta Downloads</span>
-            </div>
-        `;
-        
-        await this.delay(3000);
-        
-        // Reset
-        button.innerHTML = originalHTML;
-        button.disabled = false;
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                gsap.to(button, {
+                    scale: 1.05,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+                
+                const icon = button.querySelector('svg');
+                if (icon) {
+                    gsap.to(icon, {
+                        rotation: 10,
+                        scale: 1.2,
+                        duration: 0.3
+                    });
+                }
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                gsap.to(button, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+                
+                const icon = button.querySelector('svg');
+                if (icon) {
+                    gsap.to(icon, {
+                        rotation: 0,
+                        scale: 1,
+                        duration: 0.3
+                    });
+                }
+            });
+            
+            button.addEventListener('click', (e) => {
+                this.createRippleEffect(e, button);
+            });
+        });
     }
     
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+    setupFormValidation() {
+        // Future form validation logic
+        // This is a placeholder for when forms are added
+    }
+    
+    setupKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp':
+                    if (e.ctrlKey) {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    break;
+                case 'ArrowDown':
+                    if (e.ctrlKey) {
+                        e.preventDefault();
+                        window.scrollTo({ 
+                            top: document.documentElement.scrollHeight, 
+                            behavior: 'smooth' 
+                        });
+                    }
+                    break;
+            }
+        });
+    }
+    
+    setupTouchGestures() {
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            this.handleGesture();
+        });
+        
+        this.handleGesture = () => {
+            const swipeThreshold = 50;
+            const diff = touchStartY - touchEndY;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe up - could trigger some action
+                } else {
+                    // Swipe down - could trigger some action
+                }
+            }
+        };
+    }
+    
+    createRippleEffect(e, element) {
+        const ripple = document.createElement('span');
+        const rect = element.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: scale(0);
+            z-index: 1000;
+        `;
+        
+        element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.appendChild(ripple);
+        
+        gsap.to(ripple, {
+            scale: 2,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            onComplete: () => ripple.remove()
+        });
     }
 }
 
-// Modern Intersection Observer for Animations
-class ScrollAnimations {
+// ===== PERFORMANCE MANAGER =====
+class PerformanceManager {
     constructor() {
-        this.observerOptions = {
-            threshold: CONFIG.intersectionThreshold,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
         this.init();
     }
     
     init() {
-        this.setupObserver();
-        this.prepareElements();
+        this.setupLazyLoading();
+        this.setupImageOptimization();
+        this.preloadCriticalResources();
+        this.setupServiceWorker();
     }
     
-    setupObserver() {
-        this.observer = new IntersectionObserver((entries) => {
+    setupLazyLoading() {
+        // Lazy load images
+        const images = document.querySelectorAll('img[data-src]');
+        const imageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    this.animateElement(entry.target);
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
                 }
             });
-        }, this.observerOptions);
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
     }
     
-    prepareElements() {
-        const animatedElements = document.querySelectorAll(`
-            .stat-card, 
-            .objective-card, 
-            .method-block, 
-            .sense-card, 
-            .prototype-card,
-            .problem-card,
-            .metric-card,
-            .material-item,
-            .highlight-card
-        `);
+    setupImageOptimization() {
+        // WebP support detection and fallback
+        const supportsWebP = () => {
+            const canvas = document.createElement('canvas');
+            return canvas.toDataURL('image/webp').indexOf('webp') > -1;
+        };
         
-        animatedElements.forEach((el, index) => {
-            el.classList.add('animate-on-scroll');
-            el.style.transitionDelay = `${index * 100}ms`;
-            this.observer.observe(el);
+        if (supportsWebP()) {
+            document.documentElement.classList.add('webp');
+        }
+    }
+    
+    preloadCriticalResources() {
+        // Preload critical fonts
+        const fonts = [
+            'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap',
+            'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap'
+        ];
+        
+        fonts.forEach(font => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'style';
+            link.href = font;
+            document.head.appendChild(link);
         });
     }
     
-    animateElement(element) {
-        element.classList.add('animate');
-        this.observer.unobserve(element);
+    setupServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
     }
 }
 
-// Performance Monitor
-class PerformanceMonitor {
+// ===== ACCESSIBILITY MANAGER =====
+class AccessibilityManager {
     constructor() {
         this.init();
     }
     
     init() {
-        // Monitor Core Web Vitals
-        this.measureLCP();
-        this.measureFID();
-        this.measureCLS();
+        this.setupFocusManagement();
+        this.setupARIALabels();
+        this.setupKeyboardNavigation();
+        this.setupScreenReaderSupport();
     }
     
-    measureLCP() {
-        new PerformanceObserver((entryList) => {
-            const entries = entryList.getEntries();
-            const lastEntry = entries[entries.length - 1];
-            console.log('LCP:', lastEntry.startTime);
-        }).observe({entryTypes: ['largest-contentful-paint']});
-    }
-    
-    measureFID() {
-        new PerformanceObserver((entryList) => {
-            for (const entry of entryList.getEntries()) {
-                console.log('FID:', entry.processingStart - entry.startTime);
-            }
-        }).observe({entryTypes: ['first-input']});
-    }
-    
-    measureCLS() {
-        let clsValue = 0;
-        new PerformanceObserver((entryList) => {
-            for (const entry of entryList.getEntries()) {
-                if (!entry.hadRecentInput) {
-                    clsValue += entry.value;
+    setupFocusManagement() {
+        // Focus trap for mobile menu
+        const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                const modal = document.querySelector('.nav-menu.active');
+                if (modal) {
+                    const focusables = modal.querySelectorAll(focusableElements);
+                    const firstFocusable = focusables[0];
+                    const lastFocusable = focusables[focusables.length - 1];
+                    
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusable) {
+                            e.preventDefault();
+                            lastFocusable.focus();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusable) {
+                            e.preventDefault();
+                            firstFocusable.focus();
+                        }
+                    }
                 }
             }
-            console.log('CLS:', clsValue);
-        }).observe({entryTypes: ['layout-shift']});
+        });
+    }
+    
+    setupARIALabels() {
+        // Add ARIA labels to interactive elements
+        const carouselBtns = document.querySelectorAll('.carousel-btn');
+        carouselBtns.forEach((btn, index) => {
+            const isNext = btn.classList.contains('next-btn');
+            btn.setAttribute('aria-label', isNext ? 'Próximo slide' : 'Slide anterior');
+        });
+        
+        // Add ARIA labels to navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            const text = link.querySelector('span')?.textContent;
+            if (text) {
+                link.setAttribute('aria-label', `Navegar para seção ${text}`);
+            }
+        });
+    }
+    
+    setupKeyboardNavigation() {
+        // Enhanced keyboard navigation for carousels
+        document.addEventListener('keydown', (e) => {
+            if (e.target.closest('.swiper')) {
+                const swiper = e.target.closest('.swiper').swiper;
+                if (!swiper) return;
+                
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        swiper.slidePrev();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        swiper.slideNext();
+                        break;
+                    case ' ':
+                        e.preventDefault();
+                        swiper.autoplay.paused ? swiper.autoplay.resume() : swiper.autoplay.pause();
+                        break;
+                }
+            }
+        });
+    }
+    
+    setupScreenReaderSupport() {
+        // Live region for dynamic content
+        const liveRegion = document.createElement('div');
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.setAttribute('aria-atomic', 'true');
+        liveRegion.className = 'sr-only';
+        liveRegion.id = 'live-region';
+        document.body.appendChild(liveRegion);
+        
+        // Announce carousel changes
+        document.addEventListener('slideChange', (e) => {
+            const activeSlide = e.detail.activeSlide;
+            const slideTitle = activeSlide.querySelector('h3')?.textContent;
+            if (slideTitle) {
+                liveRegion.textContent = `Slide atual: ${slideTitle}`;
+            }
+        });
     }
 }
 
-// Initialize Everything
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize all systems
-    new ModernNavigation();
-    new ModernModal();
-    new DownloadSystem();
-    new ScrollAnimations();
-    
-    // Initialize performance monitoring in development
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        new PerformanceMonitor();
+// ===== MAIN APPLICATION =====
+class SensoryEnvironmentApp {
+    constructor() {
+        this.modules = {};
+        this.isInitialized = false;
+        this.init();
     }
     
-    // Add loading completion
-    document.body.classList.add('loaded');
+    async init() {
+        try {
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                await new Promise(resolve => {
+                    document.addEventListener('DOMContentLoaded', resolve);
+                });
+            }
+            
+            // Initialize all modules
+            this.modules.navigation = new ModernNavigation();
+            this.modules.carousel = new CarouselManager();
+            this.modules.animation = new AnimationManager();
+            this.modules.interaction = new InteractionManager();
+            this.modules.performance = new PerformanceManager();
+            this.modules.accessibility = new AccessibilityManager();
+            
+            // Setup global event listeners
+            this.setupGlobalEvents();
+            
+            // Initialize counters animation
+            this.modules.animation.animateCounters();
+            
+            this.isInitialized = true;
+            console.log('🚀 Sensory Environment App initialized successfully!');
+            
+        } catch (error) {
+            console.error('❌ Error initializing app:', error);
+        }
+    }
     
-    // Service Worker registration for PWA capabilities
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch(err => {
-            console.log('Service Worker registration failed:', err);
+    setupGlobalEvents() {
+        // Page visibility API for performance optimization
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.modules.carousel?.pauseAll();
+            } else {
+                this.modules.carousel?.resumeAll();
+            }
+        });
+        
+        // Handle resize events
+        window.addEventListener('resize', Utils.debounce(() => {
+            this.handleResize();
+        }, 250));
+        
+        // Handle orientation change
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                this.handleResize();
+            }, 100);
+        });
+        
+        // Error handling
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+        });
+        
+        // Unhandled promise rejections
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled promise rejection:', e.reason);
         });
     }
-});
+    
+    handleResize() {
+        // Refresh GSAP ScrollTrigger on resize
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+        }
+        
+        // Update carousel layouts
+        Object.values(this.modules.carousel?.carousels || {}).forEach(carousel => {
+            carousel.update();
+        });
+    }
+    
+    // Public API methods
+    scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            Utils.smoothScrollTo(section, 100);
+        }
+    }
+    
+    pauseAnimations() {
+        gsap.globalTimeline.pause();
+        this.modules.carousel?.pauseAll();
+    }
+    
+    resumeAnimations() {
+        gsap.globalTimeline.resume();
+        this.modules.carousel?.resumeAll();
+    }
+    
+    getModule(name) {
+        return this.modules[name];
+    }
+}
 
-// Export for potential module usage
+// ===== INITIALIZE APPLICATION =====
+const app = new SensoryEnvironmentApp();
+
+// Make app globally available for debugging
+window.SensoryApp = app;
+
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        ModernNavigation,
-        ModernModal,
-        DownloadSystem,
-        ScrollAnimations
-    };
+    module.exports = SensoryEnvironmentApp;
 }
