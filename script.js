@@ -1,11 +1,11 @@
 // ========================================
 // AMBIENTE SENSORIAL - JAVASCRIPT MODERNO 2025
-// Funcionalidades Essenciais e Performance Otimizada
+// Sistema Otimizado e Responsivo
 // ========================================
 
 'use strict';
 
-// ===== CONFIGURAÇÃO =====
+// ===== CONFIGURAÇÃO GLOBAL =====
 const CONFIG = {
     breakpoints: {
         mobile: 768,
@@ -14,37 +14,26 @@ const CONFIG = {
     },
     animation: {
         duration: 300,
-        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-        stagger: 100
-    },
-    carousel: {
-        autoplay: 5000,
-        speed: 600
-    },
-    scroll: {
-        offset: 100,
-        threshold: 0.1
+        easing: 'ease-out'
     }
 };
 
 // ===== UTILITÁRIOS =====
 const Utils = {
-    // Debounce para otimização de performance
-    debounce(func, wait, immediate = false) {
+    // Debounce para performance
+    debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
             const later = () => {
                 clearTimeout(timeout);
-                if (!immediate) func(...args);
+                func(...args);
             };
-            const callNow = immediate && !timeout;
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
-            if (callNow) func(...args);
         };
     },
 
-    // Throttle para eventos de scroll
+    // Throttle para scroll
     throttle(func, limit) {
         let inThrottle;
         return function(...args) {
@@ -56,24 +45,12 @@ const Utils = {
         };
     },
 
-    // Verificar se elemento está visível
-    isElementInViewport(el, threshold = 0.1) {
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-        
-        const vertInView = (rect.top <= windowHeight * (1 - threshold)) && ((rect.top + rect.height) >= windowHeight * threshold);
-        const horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0);
-        
-        return vertInView && horInView;
-    },
-
-    // Smooth scroll para âncoras
+    // Smooth scroll
     smoothScrollTo(target, duration = 800) {
         const targetElement = typeof target === 'string' ? document.querySelector(target) : target;
         if (!targetElement) return;
 
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 70;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
         const startPosition = window.pageYOffset;
         const distance = targetPosition - startPosition;
         let startTime = null;
@@ -81,12 +58,12 @@ const Utils = {
         function animation(currentTime) {
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
-            const run = ease(timeElapsed, startPosition, distance, duration);
+            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
             window.scrollTo(0, run);
             if (timeElapsed < duration) requestAnimationFrame(animation);
         }
 
-        function ease(t, b, c, d) {
+        function easeInOutQuad(t, b, c, d) {
             t /= d / 2;
             if (t < 1) return c / 2 * t * t + b;
             t--;
@@ -97,57 +74,27 @@ const Utils = {
     }
 };
 
-// ===== GERENCIADOR DE LOADING =====
+// ===== LOADING MANAGER =====
 class LoadingManager {
     constructor() {
         this.loadingScreen = document.getElementById('loading-screen');
-        this.minLoadingTime = 1500; // Tempo mínimo de loading
-        this.startTime = Date.now();
+        this.init();
     }
 
     init() {
-        // Simular carregamento de recursos
-        this.preloadResources().then(() => {
+        // Simular carregamento
+        setTimeout(() => {
             this.hideLoading();
-        });
-    }
+        }, 1500);
 
-    async preloadResources() {
-        const resources = [
-            // Preload de fontes críticas
-            new Promise(resolve => {
-                if (document.fonts) {
-                    document.fonts.ready.then(resolve);
-                } else {
-                    setTimeout(resolve, 1000);
-                }
-            }),
-            // Preload de imagens críticas
-            ...this.preloadImages()
-        ];
-
-        await Promise.all(resources);
-        
-        // Garantir tempo mínimo de loading
-        const elapsedTime = Date.now() - this.startTime;
-        if (elapsedTime < this.minLoadingTime) {
-            await new Promise(resolve => setTimeout(resolve, this.minLoadingTime - elapsedTime));
-        }
-    }
-
-    preloadImages() {
-        const imageUrls = [
-            // Adicionar URLs de imagens críticas aqui se necessário
-        ];
-
-        return imageUrls.map(url => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = resolve;
-                img.onerror = resolve; // Continuar mesmo se imagem falhar
-                img.src = url;
+        // Esconder quando tudo carregar
+        if (document.readyState === 'complete') {
+            setTimeout(() => this.hideLoading(), 800);
+        } else {
+            window.addEventListener('load', () => {
+                setTimeout(() => this.hideLoading(), 800);
             });
-        });
+        }
     }
 
     hideLoading() {
@@ -160,7 +107,7 @@ class LoadingManager {
     }
 }
 
-// ===== GERENCIADOR DE NAVEGAÇÃO =====
+// ===== NAVIGATION MANAGER =====
 class NavigationManager {
     constructor() {
         this.nav = document.getElementById('navbar');
@@ -171,7 +118,7 @@ class NavigationManager {
         this.sections = document.querySelectorAll('section[id]');
         
         this.isMenuOpen = false;
-        this.currentSection = '';
+        this.init();
     }
 
     init() {
@@ -204,6 +151,13 @@ class NavigationManager {
                 this.closeMobileMenu();
             }
         }, 250));
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (this.isMenuOpen && !this.nav.contains(e.target)) {
+                this.closeMobileMenu();
+            }
+        });
     }
 
     toggleMobileMenu() {
@@ -217,7 +171,7 @@ class NavigationManager {
             this.navToggle.classList.toggle('active', this.isMenuOpen);
         }
 
-        // Prevenir scroll do body quando menu aberto
+        // Prevenir scroll do body
         document.body.style.overflow = this.isMenuOpen ? 'hidden' : '';
     }
 
@@ -262,15 +216,10 @@ class NavigationManager {
             const sectionId = section.getAttribute('id');
             
             if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                if (this.currentSection !== sectionId) {
-                    this.currentSection = sectionId;
-                    
-                    // Atualizar links ativos
-                    this.navLinks.forEach(link => {
-                        const href = link.getAttribute('href');
-                        link.classList.toggle('active', href === `#${sectionId}`);
-                    });
-                }
+                this.navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    link.classList.toggle('active', href === `#${sectionId}`);
+                });
             }
         });
     }
@@ -283,86 +232,15 @@ class NavigationManager {
     }
 }
 
-// ===== GERENCIADOR DE CARROSSÉIS =====
-class CarouselManager {
-    constructor() {
-        this.carousels = [];
-    }
-
-    init() {
-        this.initProblemCarousel();
-        this.initPrototypesCarousel();
-    }
-
-    initProblemCarousel() {
-        const problemSwiper = new Swiper('.problem-swiper', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            autoplay: {
-                delay: CONFIG.carousel.autoplay,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                }
-            }
-        });
-
-        this.carousels.push(problemSwiper);
-    }
-
-    initPrototypesCarousel() {
-        const prototypesSwiper = new Swiper('.prototypes-swiper', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            autoplay: {
-                delay: CONFIG.carousel.autoplay + 1000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                }
-            }
-        });
-
-        this.carousels.push(prototypesSwiper);
-    }
-}
-
-// ===== GERENCIADOR DE ANIMAÇÕES =====
+// ===== ANIMATION MANAGER =====
 class AnimationManager {
     constructor() {
         this.animatedElements = new Set();
+        this.init();
     }
 
     init() {
-        // Inicializar AOS (Animate On Scroll)
+        // Inicializar AOS se disponível
         if (typeof AOS !== 'undefined') {
             AOS.init({
                 duration: 800,
@@ -373,20 +251,23 @@ class AnimationManager {
             });
         }
 
-        // Animações customizadas
-        this.initCustomAnimations();
-        this.bindScrollAnimations();
+        this.initCounters();
+        this.initIntersectionObserver();
     }
 
-    initCustomAnimations() {
-        // Animação de contadores
-        this.animateCounters();
+    initCounters() {
+        const counters = document.querySelectorAll('.stat-number, .metric-number, .highlight-number, .sustain-number');
         
-        // Animação de elementos flutuantes
-        this.animateFloatingElements();
+        counters.forEach(counter => {
+            const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
+            if (!isNaN(target)) {
+                counter.setAttribute('data-target', target);
+                counter.setAttribute('data-animated', 'false');
+            }
+        });
     }
 
-    bindScrollAnimations() {
+    initIntersectionObserver() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !this.animatedElements.has(entry.target)) {
@@ -395,55 +276,33 @@ class AnimationManager {
                 }
             });
         }, {
-            threshold: 0.1,
+            threshold: 0.5,
             rootMargin: '0px 0px -50px 0px'
         });
 
-        // Observar elementos com animação
-        document.querySelectorAll('[data-animate]').forEach(el => {
+        // Observar contadores
+        document.querySelectorAll('[data-target]').forEach(el => {
             observer.observe(el);
         });
     }
 
     animateElement(element) {
-        const animationType = element.getAttribute('data-animate');
-        
-        switch (animationType) {
-            case 'counter':
-                this.animateCounter(element);
-                break;
-            case 'slide-in':
-                this.slideIn(element);
-                break;
-            case 'fade-in':
-                this.fadeIn(element);
-                break;
+        if (element.hasAttribute('data-target')) {
+            this.animateCounter(element);
         }
-    }
-
-    animateCounters() {
-        const counters = document.querySelectorAll('.stat-number, .metric-number, .highlight-number');
-        
-        counters.forEach(counter => {
-            const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
-            if (isNaN(target)) return;
-            
-            counter.setAttribute('data-animate', 'counter');
-            counter.setAttribute('data-target', target);
-        });
     }
 
     animateCounter(element) {
         const target = parseInt(element.getAttribute('data-target')) || 0;
         const duration = 2000;
         const start = performance.now();
-        const suffix = element.textContent.replace(/[\d]/g, '');
+        const originalText = element.textContent;
+        const suffix = originalText.replace(/[\d]/g, '');
         
         const animate = (currentTime) => {
             const elapsed = currentTime - start;
             const progress = Math.min(elapsed / duration, 1);
             
-            // Easing function
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
             const current = Math.floor(target * easeOutQuart);
             
@@ -456,43 +315,13 @@ class AnimationManager {
         
         requestAnimationFrame(animate);
     }
-
-    slideIn(element) {
-        element.style.transform = 'translateX(-50px)';
-        element.style.opacity = '0';
-        element.style.transition = 'all 0.6s ease-out';
-        
-        requestAnimationFrame(() => {
-            element.style.transform = 'translateX(0)';
-            element.style.opacity = '1';
-        });
-    }
-
-    fadeIn(element) {
-        element.style.opacity = '0';
-        element.style.transition = 'opacity 0.8s ease-out';
-        
-        requestAnimationFrame(() => {
-            element.style.opacity = '1';
-        });
-    }
-
-    animateFloatingElements() {
-        const floatingElements = document.querySelectorAll('.floating-element');
-        
-        floatingElements.forEach((element, index) => {
-            const delay = index * 0.5;
-            const duration = 3 + Math.random() * 2;
-            
-            element.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-        });
-    }
 }
 
-// ===== GERENCIADOR DE INTERAÇÕES =====
+// ===== INTERACTION MANAGER =====
 class InteractionManager {
     constructor() {
         this.backToTopBtn = document.getElementById('back-to-top');
+        this.init();
     }
 
     init() {
@@ -504,13 +333,11 @@ class InteractionManager {
     initBackToTop() {
         if (!this.backToTopBtn) return;
 
-        // Mostrar/ocultar botão baseado no scroll
         window.addEventListener('scroll', Utils.throttle(() => {
             const scrolled = window.pageYOffset > 300;
             this.backToTopBtn.classList.toggle('visible', scrolled);
         }, 100));
 
-        // Click do botão
         this.backToTopBtn.addEventListener('click', () => {
             Utils.smoothScrollTo(document.body);
         });
@@ -523,132 +350,48 @@ class InteractionManager {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Feedback visual
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '<i data-lucide="check"></i> Download Iniciado!';
                 btn.style.pointerEvents = 'none';
                 
-                // Simular download (substituir por lógica real)
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.style.pointerEvents = 'auto';
-                    // Reinitialiazar ícones Lucide
                     if (typeof lucide !== 'undefined') {
                         lucide.createIcons();
                     }
                 }, 2000);
-                
-                // Analytics ou tracking aqui
-                this.trackDownload(btn);
             });
         });
     }
 
-    trackDownload(button) {
-        const fileName = button.querySelector('.download-name')?.textContent || 'unknown';
-        console.log(`Download iniciado: ${fileName}`);
-        
-        // Implementar tracking real aqui (Google Analytics, etc.)
-    }
-
     initLucideIcons() {
-        // Inicializar ícones Lucide quando disponível
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
-        } else {
-            // Fallback para quando Lucide não carregou
-            console.warn('Lucide icons não encontrado');
         }
     }
 }
 
-// ===== GERENCIADOR PRINCIPAL =====
+// ===== APLICAÇÃO PRINCIPAL =====
 class App {
     constructor() {
         this.loadingManager = new LoadingManager();
         this.navigationManager = new NavigationManager();
-        this.carouselManager = new CarouselManager();
         this.animationManager = new AnimationManager();
         this.interactionManager = new InteractionManager();
-    }
-
-    async init() {
-        try {
-            // Inicializar loading
-            this.loadingManager.init();
-            
-            // Aguardar DOM estar pronto
-            if (document.readyState === 'loading') {
-                await new Promise(resolve => {
-                    document.addEventListener('DOMContentLoaded', resolve);
-                });
-            }
-            
-            // Inicializar módulos
-            this.navigationManager.init();
-            this.animationManager.init();
-            this.interactionManager.init();
-            
-            // Aguardar Swiper estar disponível
-            await this.waitForSwiper();
-            this.carouselManager.init();
-            
-            console.log('✅ Aplicação inicializada com sucesso');
-            
-        } catch (error) {
-            console.error('❌ Erro na inicialização:', error);
-        }
-    }
-
-    async waitForSwiper() {
-        return new Promise((resolve) => {
-            if (typeof Swiper !== 'undefined') {
-                resolve();
-            } else {
-                const checkSwiper = () => {
-                    if (typeof Swiper !== 'undefined') {
-                        resolve();
-                    } else {
-                        setTimeout(checkSwiper, 100);
-                    }
-                };
-                checkSwiper();
-            }
-        });
+        
+        console.log('✅ Ambiente Sensorial - Aplicação inicializada');
     }
 }
-
-// ===== CSS PARA ANIMAÇÕES =====
-const animationCSS = `
-@keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-10px) rotate(1deg); }
-    66% { transform: translateY(-5px) rotate(-1deg); }
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
-
-.floating-element {
-    animation: float 6s ease-in-out infinite;
-}
-`;
-
-// Adicionar CSS de animações
-const styleSheet = document.createElement('style');
-styleSheet.textContent = animationCSS;
-document.head.appendChild(styleSheet);
 
 // ===== INICIALIZAÇÃO =====
-const app = new App();
-app.init();
+document.addEventListener('DOMContentLoaded', () => {
+    new App();
+});
 
-// ===== EXPORTS PARA DEBUG =====
+// ===== EXPORT PARA DEBUG =====
 if (typeof window !== 'undefined') {
     window.SensoryApp = {
-        app,
         Utils,
         CONFIG
     };
