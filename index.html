@@ -1,204 +1,206 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ambiente Sensorial para Adaptação Escolar</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif'],
-                        'outfit': ['Outfit', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Ambiente Sensorial para Adaptação Escolar - Pesquisa científica sobre ambientes sensoriais sustentáveis na educação infantil">
+    <meta name="keywords" content="ambiente sensorial, educação infantil, adaptação escolar, sustentabilidade, pesquisa científica">
+    <meta name="author" content="Giovanna Romeu Souza">
+    
+    <title>Ambiente Sensorial para Adaptação Escolar | Pesquisa 2025</title>
+    
+    <!-- Preload Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Modern Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-sprite.svg">
-    <!-- Lottie for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-    <!-- GSAP for advanced animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <!-- Swiper for carousels -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" as="style">
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (Modern, Lightweight) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Framer Motion for Animations -->
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@11.0.0/dist/framer-motion.min.js"></script>
+    
+    <!-- Swiper for Carousels -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Lottie for Advanced Animations -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Carregando experiência sensorial...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="nav" id="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                </svg>
-                <span>Ambiente Sensorial</span>
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <i data-lucide="brain"></i>
+                </div>
+                <span class="brand-text">Ambiente Sensorial</span>
             </div>
+            
             <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                        <polyline points="9,22 9,12 15,12 15,22"/>
-                    </svg>
+                <a href="#home" class="nav-link active">
+                    <i data-lucide="home"></i>
                     <span>Início</span>
                 </a>
                 <a href="#problema" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
-                    </svg>
+                    <i data-lucide="alert-circle"></i>
                     <span>Problema</span>
                 </a>
                 <a href="#objetivos" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <circle cx="12" cy="12" r="6"/>
-                        <circle cx="12" cy="12" r="2"/>
-                    </svg>
+                    <i data-lucide="target"></i>
                     <span>Objetivos</span>
                 </a>
                 <a href="#metodologia" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 11H5a2 2 0 00-2 2v7a2 2 0 002 2h4a2 2 0 002-2v-7a2 2 0 00-2-2zM21 11h-4a2 2 0 00-2 2v7a2 2 0 002 2h4a2 2 0 002-2v-7a2 2 0 00-2-2zM9 7V4a2 2 0 012-2h2a2 2 0 012 2v3"/>
-                    </svg>
+                    <i data-lucide="microscope"></i>
                     <span>Metodologia</span>
                 </a>
-                <a href="#embasamento" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
-                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
-                    </svg>
+                <a href="#teoria" class="nav-link">
+                    <i data-lucide="book-open"></i>
                     <span>Teoria</span>
                 </a>
                 <a href="#resultados" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="20" x2="18" y2="10"/>
-                        <line x1="12" y1="20" x2="12" y2="4"/>
-                        <line x1="6" y1="20" x2="6" y2="14"/>
-                    </svg>
+                    <i data-lucide="trending-up"></i>
                     <span>Resultados</span>
                 </a>
                 <a href="#prototipos" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="12,2 15.09,8.26 22,9 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9 8.91,8.26"/>
-                    </svg>
+                    <i data-lucide="lightbulb"></i>
                     <span>Protótipos</span>
                 </a>
                 <a href="#conclusao" class="nav-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                        <polyline points="22,4 12,14.01 9,11.01"/>
-                    </svg>
+                    <i data-lucide="check-circle"></i>
                     <span>Conclusão</span>
                 </a>
             </div>
-            <div class="hamburger" id="hamburger">
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
+        
+        <!-- Progress Bar -->
+        <div class="scroll-progress" id="scroll-progress"></div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-bg-elements">
-            <div class="floating-shape shape-1"></div>
-            <div class="floating-shape shape-2"></div>
-            <div class="floating-shape shape-3"></div>
+        <div class="hero-background">
+            <div class="hero-gradient"></div>
+            <div class="hero-pattern"></div>
+            <div class="floating-elements">
+                <div class="floating-element" data-aos="fade-up" data-aos-delay="100"></div>
+                <div class="floating-element" data-aos="fade-up" data-aos-delay="200"></div>
+                <div class="floating-element" data-aos="fade-up" data-aos-delay="300"></div>
+            </div>
         </div>
-        <div class="hero-container">
+        
+        <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 12l2 2 4-4"/>
-                        <circle cx="12" cy="12" r="10"/>
-                    </svg>
-                    <span>Pesquisa Científica Validada</span>
+                <div class="hero-badge" data-aos="fade-up">
+                    <i data-lucide="award"></i>
+                    <span>Pesquisa Científica Validada 2025</span>
                 </div>
-                <h1 class="hero-title">
+                
+                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
                     <span class="title-highlight">Ambiente Sensorial</span>
                     <span class="title-main">para Adaptação Escolar</span>
                 </h1>
-                <p class="hero-subtitle">Projeto de Pesquisa – <strong>Giovanna Romeu Souza</strong> (9º ano, E.M.E.F Padre João Schiavo)</p>
-                <p class="hero-description">Descubra como um <strong>ambiente sensorial inovador</strong> pode revolucionar a experiência educacional das crianças, transformando ansiedade em curiosidade e medo em descoberta.</p>
-                <div class="hero-stats">
-                    <div class="hero-stat">
+                
+                <div class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+                    <p class="author">Pesquisa por <strong>Giovanna Romeu Souza</strong></p>
+                    <p class="institution">9º ano • E.M.E.F Padre João Schiavo</p>
+                </div>
+                
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
+                    Descubra como um <strong>ambiente sensorial inovador</strong> pode revolucionar 
+                    a experiência educacional das crianças, transformando ansiedade em curiosidade 
+                    e medo em descoberta através de soluções sustentáveis e cientificamente validadas.
+                </p>
+                
+                <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-item">
                         <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                                <polyline points="22,4 12,14.01 9,11.01"/>
-                            </svg>
+                            <i data-lucide="users"></i>
                         </div>
-                        <span class="stat-number">92%</span>
-                        <span class="stat-label">Melhoria na adaptação</span>
+                        <div class="stat-content">
+                            <span class="stat-number">47</span>
+                            <span class="stat-label">Professores Pesquisados</span>
+                        </div>
                     </div>
-                    <div class="hero-stat">
+                    <div class="stat-item">
                         <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2l3.09 6.26L22 9l-5 4.87L18.18 21 12 17.27 5.82 21 7 13.87 2 9l6.91-.74L12 2z"/>
-                            </svg>
+                            <i data-lucide="recycle"></i>
                         </div>
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Materiais sustentáveis</span>
+                        <div class="stat-content">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Materiais Sustentáveis</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number">92%</span>
+                            <span class="stat-label">Melhoria na Adaptação</span>
+                        </div>
                     </div>
                 </div>
-                <div class="hero-actions">
-                    <a href="#problema" class="cta-button primary">
-                        <span>Explore a Pesquisa</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="7" y1="17" x2="17" y2="7"/>
-                            <polyline points="7,7 17,7 17,17"/>
-                        </svg>
+                
+                <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
+                    <a href="#problema" class="btn btn-primary">
+                        <span>Explorar Pesquisa</span>
+                        <i data-lucide="arrow-right"></i>
                     </a>
-                    <a href="#prototipos" class="cta-button secondary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="5,3 19,12 5,21 5,3"/>
-                        </svg>
+                    <a href="#prototipos" class="btn btn-secondary">
+                        <i data-lucide="play"></i>
                         <span>Ver Demonstração</span>
                     </a>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="hero-image-container">
-                    <div class="image-placeholder">
-                        <div class="lottie-animation" id="hero-animation"></div>
-                        <div class="image-overlay">
-                            <span>Sala Sensorial Interativa</span>
-                        </div>
+            
+            <div class="hero-visual" data-aos="fade-left" data-aos-delay="600">
+                <div class="visual-container">
+                    <div class="visual-main">
+                        <lottie-player
+                            src="https://assets10.lottiefiles.com/packages/lf20_1a8dx7zj.json"
+                            background="transparent"
+                            speed="1"
+                            style="width: 100%; height: 100%;"
+                            loop
+                            autoplay>
+                        </lottie-player>
                     </div>
-                    <div class="floating-cards">
-                        <div class="floating-card card-1">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
-                            </svg>
+                    <div class="visual-cards">
+                        <div class="visual-card" data-aos="zoom-in" data-aos-delay="700">
+                            <i data-lucide="eye"></i>
                             <span>Estímulos Visuais</span>
                         </div>
-                        <div class="floating-card card-2">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 18V5l12-2v13"/>
-                                <circle cx="6" cy="18" r="3"/>
-                                <circle cx="18" cy="16" r="3"/>
-                            </svg>
+                        <div class="visual-card" data-aos="zoom-in" data-aos-delay="800">
+                            <i data-lucide="volume-2"></i>
                             <span>Sons Relaxantes</span>
                         </div>
-                        <div class="floating-card card-3">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                                <path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                            </svg>
+                        <div class="visual-card" data-aos="zoom-in" data-aos-delay="900">
+                            <i data-lucide="hand"></i>
                             <span>Texturas Táteis</span>
                         </div>
                     </div>
@@ -207,797 +209,804 @@
         </div>
     </section>
 
-    <!-- Problema e Justificativa -->
+    <!-- Problema Section -->
     <section id="problema" class="problem-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
-                    </svg>
+                    <i data-lucide="alert-triangle"></i>
                     <span>Identificação do Problema</span>
                 </div>
-                <h2>O Desafio que Precisávamos Enfrentar</h2>
-                <p>Imagine uma criança de 4 anos entrando pela primeira vez na escola. O coração acelera, as mãos suam, e tudo ao redor parece <strong>imenso e assustador</strong>. Esta é a realidade de milhares de crianças brasileiras que enfrentam dificuldades na adaptação escolar por não se sentirem <strong>seguras e acolhidas</strong> pelos estímulos do ambiente.</p>
+                <h2 class="section-title">O Desafio que Precisávamos Enfrentar</h2>
+                <p class="section-description">
+                    Imagine uma criança de 4 anos entrando pela primeira vez na escola. 
+                    O coração acelera, as mãos suam, e tudo ao redor parece <strong>imenso e assustador</strong>. 
+                    Esta é a realidade de milhares de crianças brasileiras que enfrentam dificuldades 
+                    na adaptação escolar por não se sentirem <strong>seguras e acolhidas</strong> pelos estímulos do ambiente.
+                </p>
             </div>
             
-            <!-- Carrossel de Problemas Melhorado -->
-            <div class="problem-carousel-container relative">
-                <!-- Progress Bar -->
-                <div class="flex justify-center mb-8">
-                    <div class="flex items-center gap-2">
-                        <div class="w-8 h-1 bg-blue-600 rounded-full transition-all duration-300 carousel-progress active" data-slide="0"></div>
-                        <div class="w-8 h-1 bg-gray-300 rounded-full transition-all duration-300 carousel-progress" data-slide="1"></div>
-                        <div class="w-8 h-1 bg-gray-300 rounded-full transition-all duration-300 carousel-progress" data-slide="2"></div>
-                    </div>
-                </div>
-                
-                <div class="swiper problem-swiper rounded-2xl overflow-hidden shadow-2xl">
+            <div class="problem-carousel" data-aos="fade-up" data-aos-delay="200">
+                <div class="swiper problem-swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="problem-card bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-l-4 border-red-500 hover:shadow-2xl hover:shadow-red-500/20 transition-all duration-500 hover:scale-[1.02]">
-                                <div class="problem-icon bg-gradient-to-br from-red-500 to-orange-600 text-white shadow-lg shadow-red-500/30">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                        <path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </div>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                                    <span class="text-xs font-semibold text-red-600 uppercase tracking-wider">Urgente</span>
-                                </div>
-                                <h3 class="text-2xl font-bold text-slate-800 mb-4">A Crise Silenciosa</h3>
-                                <p class="text-slate-700 leading-relaxed mb-6">Muitas crianças desenvolvem <strong class="text-red-700 bg-red-100 px-2 py-1 rounded">ansiedade escolar</strong> nos primeiros dias, afetando seu desenvolvimento cognitivo e emocional por anos.</p>
-                                <div class="problem-stats bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-red-200/50">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <span class="stat-highlight text-3xl font-bold text-red-600">78%</span>
-                                            <span class="stat-description block text-sm text-slate-600">das crianças apresentam sinais de estresse na adaptação</span>
-                                        </div>
-                                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center">
-                                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5z"/>
-                                            </svg>
-                                        </div>
+                            <div class="problem-card urgent">
+                                <div class="card-header">
+                                    <div class="card-icon">
+                                        <i data-lucide="heart-crack"></i>
                                     </div>
+                                    <div class="card-badge">Urgente</div>
+                                </div>
+                                <h3 class="card-title">A Crise Silenciosa</h3>
+                                <p class="card-description">
+                                    Muitas crianças desenvolvem <mark>ansiedade escolar</mark> nos primeiros dias, 
+                                    afetando seu desenvolvimento cognitivo e emocional por anos.
+                                </p>
+                                <div class="card-stat">
+                                    <span class="stat-number">78%</span>
+                                    <span class="stat-text">das crianças apresentam sinais de estresse na adaptação</span>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="swiper-slide">
-                            <div class="problem-card bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-l-4 border-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 hover:scale-[1.02]">
-                                <div class="problem-icon bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                                        <polyline points="9,22 9,12 15,12 15,22"/>
-                                    </svg>
-                                </div>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                                    <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider">Estrutural</span>
-                                </div>
-                                <h3 class="text-2xl font-bold text-slate-800 mb-4">Ambientes Inadequados</h3>
-                                <p class="text-slate-700 leading-relaxed mb-6">A maioria das escolas públicas brasileiras não possui <strong class="text-blue-700 bg-blue-100 px-2 py-1 rounded">espaços sensoriais</strong> adequados para acolher diferentes necessidades infantis.</p>
-                                <div class="problem-stats bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-blue-200/50">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <span class="stat-highlight text-3xl font-bold text-blue-600">85%</span>
-                                            <span class="stat-description block text-sm text-slate-600">das escolas carecem de ambientes sensoriais estruturados</span>
-                                        </div>
-                                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
-                                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
-                                            </svg>
-                                        </div>
+                            <div class="problem-card structural">
+                                <div class="card-header">
+                                    <div class="card-icon">
+                                        <i data-lucide="building"></i>
                                     </div>
+                                    <div class="card-badge">Estrutural</div>
+                                </div>
+                                <h3 class="card-title">Ambientes Inadequados</h3>
+                                <p class="card-description">
+                                    A maioria das escolas públicas brasileiras não possui 
+                                    <mark>espaços sensoriais</mark> adequados para acolher diferentes necessidades infantis.
+                                </p>
+                                <div class="card-stat">
+                                    <span class="stat-number">85%</span>
+                                    <span class="stat-text">das escolas carecem de ambientes sensoriais estruturados</span>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="swiper-slide">
-                            <div class="problem-card bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-l-4 border-green-500 hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-500 hover:scale-[1.02]">
-                                <div class="problem-icon bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/30">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                        <circle cx="11" cy="11" r="8"/>
-                                        <path d="M21 21l-4.35-4.35"/>
-                                    </svg>
-                                </div>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                    <span class="text-xs font-semibold text-green-600 uppercase tracking-wider">Científico</span>
-                                </div>
-                                <h3 class="text-2xl font-bold text-slate-800 mb-4">Lacuna na Pesquisa</h3>
-                                <p class="text-slate-700 leading-relaxed mb-6">Existe uma <strong class="text-green-700 bg-green-100 px-2 py-1 rounded">escassez crítica</strong> de estudos sobre ambientes sensoriais em instituições públicas no Brasil.</p>
-                                <div class="problem-stats bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-green-200/50">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <span class="stat-highlight text-3xl font-bold text-green-600">0,1%</span>
-                                            <span class="stat-description block text-sm text-slate-600">das pesquisas focam em escolas públicas brasileiras</span>
-                                        </div>
-                                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
-                                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
-                                                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
-                                            </svg>
-                                        </div>
+                            <div class="problem-card research">
+                                <div class="card-header">
+                                    <div class="card-icon">
+                                        <i data-lucide="search"></i>
                                     </div>
+                                    <div class="card-badge">Científico</div>
+                                </div>
+                                <h3 class="card-title">Lacuna na Pesquisa</h3>
+                                <p class="card-description">
+                                    Existe uma <mark>escassez crítica</mark> de estudos sobre ambientes 
+                                    sensoriais em instituições públicas no Brasil.
+                                </p>
+                                <div class="card-stat">
+                                    <span class="stat-number">0,1%</span>
+                                    <span class="stat-text">das pesquisas focam em escolas públicas brasileiras</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Improved Pagination -->
-                    <div class="swiper-pagination !bottom-6 !left-1/2 !transform !-translate-x-1/2"></div>
-                </div>
-                
-                <!-- Enhanced Navigation -->
-                <div class="carousel-navigation flex justify-center gap-4 mt-8">
-                    <button class="carousel-btn prev-btn group bg-white hover:bg-blue-50 shadow-lg hover:shadow-xl border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:scale-110">
-                        <svg class="group-hover:text-blue-600 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                        <span class="ml-2 text-sm font-medium group-hover:text-blue-600">Anterior</span>
-                    </button>
-                    <button class="carousel-btn next-btn group bg-white hover:bg-blue-50 shadow-lg hover:shadow-xl border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:scale-110">
-                        <span class="mr-2 text-sm font-medium group-hover:text-blue-600">Próximo</span>
-                        <svg class="group-hover:text-blue-600 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9,18 15,12 9,6"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Slide Counter -->
-                <div class="text-center mt-4">
-                    <span class="text-sm text-slate-500">
-                        <span class="current-slide font-semibold text-blue-600">1</span> 
-                        de 
-                        <span class="total-slides font-semibold">3</span>
-                    </span>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
             
-            <div class="why-matters">
-                <h3>Por que Este Projeto Pode Mudar Tudo?</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                            </svg>
+            <div class="problem-impact" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="impact-title">Por que Este Projeto Pode Mudar Tudo?</h3>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <div class="impact-icon">
+                            <i data-lucide="activity"></i>
                         </div>
-                        <div class="stat-number">75%</div>
-                        <div class="stat-text">das crianças apresentam <strong>sinais visíveis de estresse</strong> durante a adaptação escolar</div>
+                        <div class="impact-content">
+                            <span class="impact-number">75%</span>
+                            <p class="impact-text">das crianças apresentam <strong>sinais visíveis de estresse</strong> durante a adaptação escolar</p>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-                                <circle cx="8.5" cy="7" r="4"/>
-                                <line x1="20" y1="8" x2="20" y2="14"/>
-                                <line x1="23" y1="11" x2="17" y2="11"/>
-                            </svg>
+                    <div class="impact-item">
+                        <div class="impact-icon">
+                            <i data-lucide="users"></i>
                         </div>
-                        <div class="stat-number">90%</div>
-                        <div class="stat-text">dos professores relatam <strong>falta de recursos</strong> para criar ambientes acolhedores</div>
+                        <div class="impact-content">
+                            <span class="impact-number">90%</span>
+                            <p class="impact-text">dos professores relatam <strong>falta de recursos</strong> para criar ambientes acolhedores</p>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
-                                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
-                            </svg>
+                    <div class="impact-item">
+                        <div class="impact-icon">
+                            <i data-lucide="book-open"></i>
                         </div>
-                        <div class="stat-number">0,1%</div>
-                        <div class="stat-text">das pesquisas sobre ambientes sensoriais focam em <strong>escolas públicas brasileiras</strong></div>
+                        <div class="impact-content">
+                            <span class="impact-number">0,1%</span>
+                            <p class="impact-text">das pesquisas sobre ambientes sensoriais focam em <strong>escolas públicas brasileiras</strong></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Objetivos -->
+    <!-- Objetivos Section -->
     <section id="objetivos" class="objectives-section">
         <div class="container">
-            <h2>Nossos Objetivos Transformadores</h2>
-            <p class="section-intro">Cada objetivo foi cuidadosamente planejado para criar um <strong>impacto real e mensurável</strong> na vida das crianças:</p>
-            <div class="objectives-grid">
-                <div class="objective-card">
-                    <div class="objective-icon">🧠</div>
-                    <h3>Estimular Todos os Sentidos</h3>
-                    <p>Promover o <strong>desenvolvimento integral</strong> das crianças através de estímulos sensoriais cientificamente planejados que ativam diferentes áreas do cérebro simultaneamente.</p>
-                    <div class="objective-impact">Impacto: <strong>Melhora de 85% na concentração</strong></div>
-                </div>
-                <div class="objective-card">
-                    <div class="objective-icon">🔍</div>
-                    <h3>Mapear Elementos Eficazes</h3>
-                    <p>Identificar e catalogar <strong>elementos sensoriais comprovadamente eficazes</strong> para criar um guia prático para outras instituições.</p>
-                    <div class="objective-impact">Resultado: <strong>12+ elementos validados</strong></div>
-                </div>
-                <div class="objective-card">
-                    <div class="objective-icon">👁️</div>
-                    <h3>Documentar Transformações</h3>
-                    <p>Observar e registrar <strong>mudanças comportamentais reais</strong> através de metodologia científica rigorosa.</p>
-                    <div class="objective-impact">Dados: <strong>200+ horas de observação</strong></div>
-                </div>
-                <div class="objective-card">
-                    <div class="objective-icon">📚</div>
-                    <h3>Revolucionar Práticas Pedagógicas</h3>
-                    <p>Desenvolver <strong>metodologias inovadoras</strong> que integram estímulos sensoriais ao currículo educacional tradicional.</p>
-                    <div class="objective-impact">Meta: <strong>Implementação em 50+ escolas</strong></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Metodologia -->
-    <section id="metodologia" class="methodology-section">
-        <div class="container">
-            <h2>Nossa Jornada Científica</h2>
-            <p class="method-intro">Seguimos um <strong>rigoroso processo científico</strong> para garantir que cada descoberta fosse válida e aplicável:</p>
-            <div class="methodology-blocks">
-                <div class="method-block">
-                    <div class="method-number">1</div>
-                    <div class="method-content">
-                        <h3>Pesquisa Bibliográfica Profunda</h3>
-                        <p>Mergulhamos em <strong>mais de 150 estudos internacionais</strong> sobre neurociência sensorial, psicologia infantil e arquitetura educacional. Descobrimos que ambientes sensoriais podem reduzir o cortisol (hormônio do estresse) em até <strong>40% nas crianças</strong>.</p>
-                        <div class="method-details">
-                            <span class="detail-tag">📚 150+ estudos analisados</span>
-                            <span class="detail-tag">🌍 15 países pesquisados</span>
-                            <span class="detail-tag">🧪 40% redução de estresse</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="method-block">
-                    <div class="method-number">2</div>
-                    <div class="method-content">
-                        <h3>Pesquisa de Campo Extensiva</h3>
-                        <p>Aplicamos <strong>questionários detalhados</strong> com 47 professores da Educação Infantil de diferentes regiões. Os resultados revelaram que <strong>92% dos educadores</strong> nunca tiveram acesso a formação sobre ambientes sensoriais.</p>
-                        <div class="method-details">
-                            <span class="detail-tag">👩‍🏫 47 professores entrevistados</span>
-                            <span class="detail-tag">📋 85 questões aplicadas</span>
-                            <span class="detail-tag">📊 92% sem formação específica</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="method-block">
-                    <div class="method-number">3</div>
-                    <div class="method-content">
-                        <h3>Desenvolvimento de Protótipos Inovadores</h3>
-                        <p>Criamos <strong>15 protótipos únicos</strong> usando exclusivamente materiais recicláveis, provando que inovação não precisa ser cara. Cada material foi testado por segurança, durabilidade e <strong>impacto sensorial</strong>.</p>
-                        <div class="method-details">
-                            <span class="detail-tag">♻️ 100% materiais reciclados</span>
-                            <span class="detail-tag">🔧 15 protótipos criados</span>
-                            <span class="detail-tag">✅ 200+ horas de testes</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Embasamento Teórico -->
-    <section id="embasamento" class="theory-section">
-        <div class="container">
-            <h2>A Ciência por Trás da Magia</h2>
-            <p class="theory-intro">Cada elemento do nosso projeto é baseado em <strong>evidências científicas sólidas</strong> sobre como o cérebro infantil processa informações sensoriais:</p>
-            <div class="theory-content">
-                <div class="senses-section">
-                    <h3>Os Seis Sistemas Sensoriais Fundamentais</h3>
-                    <p class="senses-description">Entenda como cada sentido contribui para o <strong>desenvolvimento neurológico completo</strong> da criança:</p>
-                    <div class="senses-grid">
-                        <div class="sense-card" data-sense="visao">
-                            <div class="sense-icon">👁️</div>
-                            <h4>Visão</h4>
-                            <p class="sense-preview"><strong>80% das informações</strong> que processamos</p>
-                        </div>
-                        <div class="sense-card" data-sense="audicao">
-                            <div class="sense-icon">👂</div>
-                            <h4>Audição</h4>
-                            <p class="sense-preview">Desenvolve <strong>linguagem e memória</strong></p>
-                        </div>
-                        <div class="sense-card" data-sense="olfato">
-                            <div class="sense-icon">👃</div>
-                            <h4>Olfato</h4>
-                            <p class="sense-preview">Conecta diretamente às <strong>emoções</strong></p>
-                        </div>
-                        <div class="sense-card" data-sense="tato">
-                            <div class="sense-icon">✋</div>
-                            <h4>Tato</h4>
-                            <p class="sense-preview">Primeiro sentido a <strong>se desenvolver</strong></p>
-                        </div>
-                        <div class="sense-card" data-sense="paladar">
-                            <div class="sense-icon">👅</div>
-                            <h4>Paladar</h4>
-                            <p class="sense-preview">Estimula <strong>curiosidade e exploração</strong></p>
-                        </div>
-                        <div class="sense-card" data-sense="vestibular">
-                            <div class="sense-icon">🔄</div>
-                            <h4>Sistema Vestibular</h4>
-                            <p class="sense-preview">Controla <strong>equilíbrio e movimento</strong></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="color-psychology">
-                    <h3>A Revolução das Cores na Educação</h3>
-                    <p class="color-intro">As cores não são apenas decoração - elas são <strong>ferramentas neurológicas poderosas</strong> que influenciam humor, concentração e aprendizagem:</p>
-                    <div class="color-concepts">
-                        <div class="color-concept">
-                            <div class="color-visual" style="background: linear-gradient(to right, #000, #fff);"></div>
-                            <h4>Valor Tonal</h4>
-                            <p>A <strong>claridade ou escuridão</strong> de uma cor afeta diretamente os níveis de energia das crianças. Tons claros estimulam atividade, tons escuros promovem calma.</p>
-                        </div>
-                        <div class="color-concept">
-                            <div class="color-visual" style="background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);"></div>
-                            <h4>Matiz</h4>
-                            <p>A <strong>cor pura</strong> sem modificações. Cada matiz ativa diferentes áreas cerebrais: azul para concentração, verde para tranquilidade, amarelo para criatividade.</p>
-                        </div>
-                        <div class="color-concept">
-                            <div class="color-visual" style="background: linear-gradient(to right, #ff6b6b, #ff9999);"></div>
-                            <h4>Croma</h4>
-                            <p>A <strong>intensidade da cor</strong>. Cores saturadas aumentam alerta e energia, enquanto cores dessaturadas promovem relaxamento e foco sustentado.</p>
-                        </div>
-                        <div class="color-concept">
-                            <div class="color-visual" style="background: linear-gradient(45deg, #ff4444, #4444ff);"></div>
-                            <h4>Temperatura</h4>
-                            <p>Cores <strong>quentes</strong> (vermelhos, laranjas) estimulam interação social. Cores <strong>frias</strong> (azuis, verdes) facilitam concentração individual.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resultados -->
-    <section id="resultados" class="results-section">
-        <div class="container">
-            <h2>Resultados que Surpreenderam a Todos</h2>
-            <p class="results-intro">Os números falam por si: nossa pesquisa revelou <strong>descobertas impressionantes</strong> que podem transformar a educação brasileira:</p>
-            <div class="results-content">
-                <div class="results-stats">
-                    <div class="result-highlight">
-                        <div class="result-percentage">94%</div>
-                        <p>dos professores <strong>confirmaram a necessidade urgente</strong> de ambientes sensoriais em suas escolas</p>
-                        <div class="result-context">
-                            <p>Este resultado foi <strong>23% maior</strong> do que nossa expectativa inicial, revelando uma demanda reprimida massive no sistema educacional.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="impact-metrics">
-                    <h3>Impactos Mensuráveis da Implementação</h3>
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-number">67%</div>
-                            <div class="metric-text">Redução no <strong>tempo de adaptação</strong> das crianças</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-number">89%</div>
-                            <div class="metric-text">Melhoria na <strong>participação em atividades</strong></div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-number">78%</div>
-                            <div class="metric-text">Redução de <strong>episódios de choro e ansiedade</strong></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="materials-mentioned">
-                    <h3>Os "Heróis" Materiais Mais Solicitados</h3>
-                    <p class="materials-intro">Baseado na análise das respostas, identificamos os <strong>materiais com maior potencial transformador</strong>:</p>
-                    <div class="materials-list">
-                        <div class="material-item featured">
-                            <span class="material-icon">🟫</span>
-                            <div class="material-info">
-                                <span class="material-name">Tapetes Táteis Multitextura</span>
-                                <span class="material-stat"><strong>Solicitado por 91%</strong> dos professores</span>
-                            </div>
-                        </div>
-                        <div class="material-item">
-                            <span class="material-icon">🥁</span>
-                            <div class="material-info">
-                                <span class="material-name">Tambores Rítmicos</span>
-                                <span class="material-stat"><strong>83%</strong> consideram essencial</span>
-                            </div>
-                        </div>
-                        <div class="material-item">
-                            <span class="material-icon">🔔</span>
-                            <div class="material-info">
-                                <span class="material-name">Chocalhos Sensoriais</span>
-                                <span class="material-stat"><strong>76%</strong> querem implementar</span>
-                            </div>
-                        </div>
-                        <div class="material-item">
-                            <span class="material-icon">💡</span>
-                            <div class="material-info">
-                                <span class="material-name">LEDs Coloridos Interativos</span>
-                                <span class="material-stat"><strong>88%</strong> veem como prioritário</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Protótipos -->
-    <section id="prototipos" class="prototypes-section">
-        <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="12,2 15.09,8.26 22,9 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9 8.91,8.26"/>
-                    </svg>
-                    <span>Protótipos Inovadores</span>
+                    <i data-lucide="target"></i>
+                    <span>Objetivos Transformadores</span>
                 </div>
-                <h2>Protótipos que Provam: Inovação Pode Ser Sustentável</h2>
-                <p class="prototypes-intro">Cada protótipo foi desenvolvido com <strong>materiais 100% reciclados</strong>, provando que é possível criar recursos educacionais poderosos sem comprometer o orçamento escolar:</p>
+                <h2 class="section-title">Nossos Objetivos Transformadores</h2>
+                <p class="section-description">
+                    Cada objetivo foi cuidadosamente planejado para criar um 
+                    <strong>impacto real e mensurável</strong> na vida das crianças
+                </p>
             </div>
             
-            <div class="sustainability-stats">
-                <div class="sustain-stat">
+            <div class="objectives-grid">
+                <div class="objective-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="objective-icon">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <h3 class="objective-title">Estimular Todos os Sentidos</h3>
+                    <p class="objective-description">
+                        Promover o <strong>desenvolvimento integral</strong> das crianças através de 
+                        estímulos sensoriais cientificamente planejados que ativam diferentes áreas 
+                        do cérebro simultaneamente.
+                    </p>
+                    <div class="objective-impact">
+                        <span class="impact-label">Impacto:</span>
+                        <span class="impact-value">Melhora de 85% na concentração</span>
+                    </div>
+                </div>
+                
+                <div class="objective-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="objective-icon">
+                        <i data-lucide="map"></i>
+                    </div>
+                    <h3 class="objective-title">Mapear Elementos Eficazes</h3>
+                    <p class="objective-description">
+                        Identificar e catalogar <strong>elementos sensoriais comprovadamente eficazes</strong> 
+                        para criar um guia prático para outras instituições.
+                    </p>
+                    <div class="objective-impact">
+                        <span class="impact-label">Resultado:</span>
+                        <span class="impact-value">12+ elementos validados</span>
+                    </div>
+                </div>
+                
+                <div class="objective-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="objective-icon">
+                        <i data-lucide="camera"></i>
+                    </div>
+                    <h3 class="objective-title">Documentar Transformações</h3>
+                    <p class="objective-description">
+                        Observar e registrar <strong>mudanças comportamentais reais</strong> 
+                        através de metodologia científica rigorosa.
+                    </p>
+                    <div class="objective-impact">
+                        <span class="impact-label">Dados:</span>
+                        <span class="impact-value">200+ horas de observação</span>
+                    </div>
+                </div>
+                
+                <div class="objective-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="objective-icon">
+                        <i data-lucide="graduation-cap"></i>
+                    </div>
+                    <h3 class="objective-title">Revolucionar Práticas Pedagógicas</h3>
+                    <p class="objective-description">
+                        Desenvolver <strong>metodologias inovadoras</strong> que integram estímulos 
+                        sensoriais ao currículo educacional tradicional.
+                    </p>
+                    <div class="objective-impact">
+                        <span class="impact-label">Meta:</span>
+                        <span class="impact-value">Implementação em 50+ escolas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metodologia Section -->
+    <section id="metodologia" class="methodology-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-badge">
+                    <i data-lucide="microscope"></i>
+                    <span>Jornada Científica</span>
+                </div>
+                <h2 class="section-title">Nossa Jornada Científica</h2>
+                <p class="section-description">
+                    Seguimos um <strong>rigoroso processo científico</strong> para garantir que 
+                    cada descoberta fosse válida e aplicável
+                </p>
+            </div>
+            
+            <div class="methodology-timeline">
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="timeline-marker">
+                        <span class="timeline-number">1</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Pesquisa Bibliográfica Profunda</h3>
+                        <p class="timeline-description">
+                            Mergulhamos em <strong>mais de 150 estudos internacionais</strong> sobre 
+                            neurociência sensorial, psicologia infantil e arquitetura educacional. 
+                            Descobrimos que ambientes sensoriais podem reduzir o cortisol 
+                            (hormônio do estresse) em até <strong>40% nas crianças</strong>.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">📚 150+ estudos analisados</span>
+                            <span class="tag">🌍 15 países pesquisados</span>
+                            <span class="tag">🧪 40% redução de estresse</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
+                    <div class="timeline-marker">
+                        <span class="timeline-number">2</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Pesquisa de Campo Extensiva</h3>
+                        <p class="timeline-description">
+                            Aplicamos <strong>questionários detalhados</strong> com 47 professores da 
+                            Educação Infantil de diferentes regiões. Os resultados revelaram que 
+                            <strong>92% dos educadores</strong> nunca tiveram acesso a formação sobre ambientes sensoriais.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">👩‍🏫 47 professores entrevistados</span>
+                            <span class="tag">📋 85 questões aplicadas</span>
+                            <span class="tag">📊 92% sem formação específica</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+                    <div class="timeline-marker">
+                        <span class="timeline-number">3</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Desenvolvimento de Protótipos Inovadores</h3>
+                        <p class="timeline-description">
+                            Criamos <strong>15 protótipos únicos</strong> usando exclusivamente materiais 
+                            recicláveis, provando que inovação não precisa ser cara. Cada material foi 
+                            testado por segurança, durabilidade e <strong>impacto sensorial</strong>.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">♻️ 100% materiais reciclados</span>
+                            <span class="tag">🔧 15 protótipos criados</span>
+                            <span class="tag">✅ 200+ horas de testes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teoria Section -->
+    <section id="teoria" class="theory-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-badge">
+                    <i data-lucide="book-open"></i>
+                    <span>Embasamento Científico</span>
+                </div>
+                <h2 class="section-title">A Ciência por Trás da Magia</h2>
+                <p class="section-description">
+                    Cada elemento do nosso projeto é baseado em <strong>evidências científicas sólidas</strong> 
+                    sobre como o cérebro infantil processa informações sensoriais
+                </p>
+            </div>
+            
+            <div class="theory-content">
+                <div class="senses-section" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="subsection-title">Os Seis Sistemas Sensoriais Fundamentais</h3>
+                    <p class="subsection-description">
+                        Entenda como cada sentido contribui para o <strong>desenvolvimento neurológico completo</strong> da criança
+                    </p>
+                    
+                    <div class="senses-grid">
+                        <div class="sense-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="sense-icon">
+                                <i data-lucide="eye"></i>
+                            </div>
+                            <h4 class="sense-title">Visão</h4>
+                            <p class="sense-description"><strong>80% das informações</strong> que processamos</p>
+                        </div>
+                        
+                        <div class="sense-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="sense-icon">
+                                <i data-lucide="ear"></i>
+                            </div>
+                            <h4 class="sense-title">Audição</h4>
+                            <p class="sense-description">Desenvolve <strong>linguagem e memória</strong></p>
+                        </div>
+                        
+                        <div class="sense-card" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="sense-icon">
+                                <i data-lucide="nose"></i>
+                            </div>
+                            <h4 class="sense-title">Olfato</h4>
+                            <p class="sense-description">Conecta diretamente às <strong>emoções</strong></p>
+                        </div>
+                        
+                        <div class="sense-card" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="sense-icon">
+                                <i data-lucide="hand"></i>
+                            </div>
+                            <h4 class="sense-title">Tato</h4>
+                            <p class="sense-description">Primeiro sentido a <strong>se desenvolver</strong></p>
+                        </div>
+                        
+                        <div class="sense-card" data-aos="zoom-in" data-aos-delay="500">
+                            <div class="sense-icon">
+                                <i data-lucide="cherry"></i>
+                            </div>
+                            <h4 class="sense-title">Paladar</h4>
+                            <p class="sense-description">Estimula <strong>curiosidade e exploração</strong></p>
+                        </div>
+                        
+                        <div class="sense-card" data-aos="zoom-in" data-aos-delay="600">
+                            <div class="sense-icon">
+                                <i data-lucide="rotate-3d"></i>
+                            </div>
+                            <h4 class="sense-title">Sistema Vestibular</h4>
+                            <p class="sense-description">Controla <strong>equilíbrio e movimento</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="color-psychology" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="subsection-title">A Revolução das Cores na Educação</h3>
+                    <p class="subsection-description">
+                        As cores não são apenas decoração - elas são <strong>ferramentas neurológicas poderosas</strong> 
+                        que influenciam humor, concentração e aprendizagem
+                    </p>
+                    
+                    <div class="color-concepts">
+                        <div class="color-concept" data-aos="fade-up" data-aos-delay="100">
+                            <div class="color-visual grayscale"></div>
+                            <h4 class="color-title">Valor Tonal</h4>
+                            <p class="color-description">
+                                A <strong>claridade ou escuridão</strong> de uma cor afeta diretamente os níveis 
+                                de energia das crianças. Tons claros estimulam atividade, tons escuros promovem calma.
+                            </p>
+                        </div>
+                        
+                        <div class="color-concept" data-aos="fade-up" data-aos-delay="200">
+                            <div class="color-visual rainbow"></div>
+                            <h4 class="color-title">Matiz</h4>
+                            <p class="color-description">
+                                A <strong>cor pura</strong> sem modificações. Cada matiz ativa diferentes áreas cerebrais: 
+                                azul para concentração, verde para tranquilidade, amarelo para criatividade.
+                            </p>
+                        </div>
+                        
+                        <div class="color-concept" data-aos="fade-up" data-aos-delay="300">
+                            <div class="color-visual saturation"></div>
+                            <h4 class="color-title">Croma</h4>
+                            <p class="color-description">
+                                A <strong>intensidade da cor</strong>. Cores saturadas aumentam alerta e energia, 
+                                enquanto cores dessaturadas promovem relaxamento e foco sustentado.
+                            </p>
+                        </div>
+                        
+                        <div class="color-concept" data-aos="fade-up" data-aos-delay="400">
+                            <div class="color-visual temperature"></div>
+                            <h4 class="color-title">Temperatura</h4>
+                            <p class="color-description">
+                                Cores <strong>quentes</strong> (vermelhos, laranjas) estimulam interação social. 
+                                Cores <strong>frias</strong> (azuis, verdes) facilitam concentração individual.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados Section -->
+    <section id="resultados" class="results-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-badge">
+                    <i data-lucide="trending-up"></i>
+                    <span>Descobertas Impressionantes</span>
+                </div>
+                <h2 class="section-title">Resultados que Surpreenderam a Todos</h2>
+                <p class="section-description">
+                    Os números falam por si: nossa pesquisa revelou <strong>descobertas impressionantes</strong> 
+                    que podem transformar a educação brasileira
+                </p>
+            </div>
+            
+            <div class="results-highlight" data-aos="zoom-in" data-aos-delay="200">
+                <div class="highlight-content">
+                    <span class="highlight-number">94%</span>
+                    <p class="highlight-text">
+                        dos professores <strong>confirmaram a necessidade urgente</strong> de ambientes 
+                        sensoriais em suas escolas
+                    </p>
+                    <div class="highlight-context">
+                        <p>
+                            Este resultado foi <strong>23% maior</strong> do que nossa expectativa inicial, 
+                            revelando uma demanda reprimida massiva no sistema educacional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-metrics" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="metrics-title">Impactos Mensuráveis da Implementação</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i data-lucide="clock"></i>
+                        </div>
+                        <span class="metric-number">67%</span>
+                        <p class="metric-text">Redução no <strong>tempo de adaptação</strong> das crianças</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <span class="metric-number">89%</span>
+                        <p class="metric-text">Melhoria na <strong>participação em atividades</strong></p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i data-lucide="heart"></i>
+                        </div>
+                        <span class="metric-number">78%</span>
+                        <p class="metric-text">Redução de <strong>episódios de choro e ansiedade</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="materials-ranking" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="ranking-title">Os "Heróis" Materiais Mais Solicitados</h3>
+                <p class="ranking-description">
+                    Baseado na análise das respostas, identificamos os <strong>materiais com maior potencial transformador</strong>
+                </p>
+                
+                <div class="materials-list">
+                    <div class="material-item featured">
+                        <div class="material-rank">1</div>
+                        <div class="material-icon">
+                            <i data-lucide="square"></i>
+                        </div>
+                        <div class="material-content">
+                            <h4 class="material-name">Tapetes Táteis Multitextura</h4>
+                            <p class="material-stat">Solicitado por <strong>91%</strong> dos professores</p>
+                        </div>
+                    </div>
+                    
+                    <div class="material-item">
+                        <div class="material-rank">2</div>
+                        <div class="material-icon">
+                            <i data-lucide="music"></i>
+                        </div>
+                        <div class="material-content">
+                            <h4 class="material-name">Tambores Rítmicos</h4>
+                            <p class="material-stat"><strong>83%</strong> consideram essencial</p>
+                        </div>
+                    </div>
+                    
+                    <div class="material-item">
+                        <div class="material-rank">3</div>
+                        <div class="material-icon">
+                            <i data-lucide="bell"></i>
+                        </div>
+                        <div class="material-content">
+                            <h4 class="material-name">Chocalhos Sensoriais</h4>
+                            <p class="material-stat"><strong>76%</strong> querem implementar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="material-item">
+                        <div class="material-rank">4</div>
+                        <div class="material-icon">
+                            <i data-lucide="lightbulb"></i>
+                        </div>
+                        <div class="material-content">
+                            <h4 class="material-name">LEDs Coloridos Interativos</h4>
+                            <p class="material-stat"><strong>88%</strong> veem como prioritário</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protótipos Section -->
+    <section id="prototipos" class="prototypes-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-badge">
+                    <i data-lucide="lightbulb"></i>
+                    <span>Protótipos Inovadores</span>
+                </div>
+                <h2 class="section-title">Protótipos que Provam: Inovação Pode Ser Sustentável</h2>
+                <p class="section-description">
+                    Cada protótipo foi desenvolvido com <strong>materiais 100% reciclados</strong>, 
+                    provando que é possível criar recursos educacionais poderosos sem comprometer o orçamento escolar
+                </p>
+            </div>
+            
+            <div class="sustainability-stats" data-aos="fade-up" data-aos-delay="200">
+                <div class="sustain-item">
                     <div class="sustain-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="1" x2="12" y2="23"/>
-                            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                        </svg>
+                        <i data-lucide="dollar-sign"></i>
                     </div>
                     <span class="sustain-number">R$ 15,00</span>
                     <span class="sustain-label">Custo médio por protótipo</span>
                 </div>
-                <div class="sustain-stat">
+                <div class="sustain-item">
                     <div class="sustain-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 3h5v5"/>
-                            <path d="M8 3H3v5"/>
-                            <path d="M12 22v-8.3a4 4 0 00-1.172-2.872L3 3"/>
-                            <path d="M21 3l-7.828 7.828A4 4 0 0012 13.7V22"/>
-                        </svg>
+                        <i data-lucide="recycle"></i>
                     </div>
                     <span class="sustain-number">2,3 kg</span>
                     <span class="sustain-label">Resíduos reutilizados</span>
                 </div>
-                <div class="sustain-stat">
+                <div class="sustain-item">
                     <div class="sustain-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="20" x2="18" y2="10"/>
-                            <line x1="12" y1="20" x2="12" y2="4"/>
-                            <line x1="6" y1="20" x2="6" y2="14"/>
-                        </svg>
+                        <i data-lucide="trending-down"></i>
                     </div>
                     <span class="sustain-number">80%</span>
                     <span class="sustain-label">Economia vs. materiais novos</span>
                 </div>
             </div>
-
-            <!-- Carrossel Avançado de Protótipos -->
-            <div class="prototypes-carousel-container relative">
-                <!-- Interactive Progress Indicators -->
-                <div class="flex justify-center mb-8">
-                    <div class="flex items-center gap-3">
-                        <button class="prototype-progress active w-12 h-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-300 hover:scale-110" data-slide="0">
-                            <span class="sr-only">Slide 1</span>
-                        </button>
-                        <button class="prototype-progress w-12 h-3 bg-gray-300 rounded-full transition-all duration-300 hover:scale-110 hover:bg-gray-400" data-slide="1">
-                            <span class="sr-only">Slide 2</span>
-                        </button>
-                        <button class="prototype-progress w-12 h-3 bg-gray-300 rounded-full transition-all duration-300 hover:scale-110 hover:bg-gray-400" data-slide="2">
-                            <span class="sr-only">Slide 3</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="swiper prototypes-swiper rounded-3xl overflow-hidden shadow-2xl bg-white">
+            
+            <div class="prototypes-carousel" data-aos="fade-up" data-aos-delay="300">
+                <div class="swiper prototypes-swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="prototype-card featured bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 relative overflow-hidden group">
-                                <!-- Animated Background -->
-                                <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-orange-400/10 to-red-400/10 group-hover:from-yellow-400/20 group-hover:via-orange-400/20 group-hover:to-red-400/20 transition-all duration-500"></div>
-                                
-                                <div class="prototype-badge absolute top-4 right-4 z-10 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-bounce">
-                                    <svg class="w-3 h-3 inline mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                        <polygon points="12,2 15.09,8.26 22,9 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9 8.91,8.26"/>
-                                    </svg>
+                            <div class="prototype-card featured">
+                                <div class="prototype-badge">
+                                    <i data-lucide="star"></i>
                                     <span>Mais Popular</span>
                                 </div>
-                                
-                                <div class="prototype-visual relative p-8">
-                                    <div class="prototype-icon w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center shadow-xl shadow-orange-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                        <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                                            <path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                                        </svg>
-                                    </div>
-                                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 rounded-2xl group-hover:from-orange-500/10 group-hover:to-red-500/10 transition-all duration-500"></div>
+                                <div class="prototype-icon">
+                                    <i data-lucide="square-stack"></i>
                                 </div>
-                                
-                                <div class="prototype-content relative z-10 p-8 pt-0">
-                                    <h3 class="text-2xl font-bold text-slate-800 mb-4 group-hover:text-orange-700 transition-colors">Tapete Tátil Multissensorial</h3>
-                                    <p class="text-slate-700 leading-relaxed mb-6">Criado com <strong class="text-orange-700 bg-orange-100 px-2 py-1 rounded">16 texturas diferentes</strong> usando materiais como cortiça, lixa, tecidos variados e elementos naturais. Estimula o desenvolvimento neuromotor e acalma crianças agitadas.</p>
-                                    
-                                    <div class="prototype-stats space-y-4">
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-orange-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                                                    <polyline points="22,4 12,14.01 9,11.01"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-green-600">95% aprovação</strong> dos professores</span>
-                                        </div>
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-orange-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <circle cx="12" cy="12" r="10"/>
-                                                    <polyline points="12,6 12,12 16,14"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-blue-600">20 min</strong> uso recomendado</span>
-                                        </div>
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-orange-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <line x1="12" y1="1" x2="12" y2="23"/>
-                                                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-emerald-600">R$ 12,00</strong> para construir</span>
-                                        </div>
+                                <h3 class="prototype-title">Tapete Tátil Multissensorial</h3>
+                                <p class="prototype-description">
+                                    Criado com <mark>16 texturas diferentes</mark> usando materiais como cortiça, 
+                                    lixa, tecidos variados e elementos naturais. Estimula o desenvolvimento 
+                                    neuromotor e acalma crianças agitadas.
+                                </p>
+                                <div class="prototype-stats">
+                                    <div class="stat-item">
+                                        <i data-lucide="check-circle"></i>
+                                        <span><strong>95% aprovação</strong> dos professores</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i data-lucide="clock"></i>
+                                        <span><strong>20 min</strong> uso recomendado</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i data-lucide="dollar-sign"></i>
+                                        <span><strong>R$ 12,00</strong> para construir</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="swiper-slide">
-                            <div class="prototype-card bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden group">
-                                <div class="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-indigo-400/10 to-purple-400/10 group-hover:from-blue-400/20 group-hover:via-indigo-400/20 group-hover:to-purple-400/20 transition-all duration-500"></div>
-                                
-                                <div class="prototype-visual relative p-8">
-                                    <div class="prototype-icon w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30 group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500">
-                                        <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M9 18V5l12-2v13"/>
-                                            <circle cx="6" cy="18" r="3"/>
-                                            <circle cx="18" cy="16" r="3"/>
-                                        </svg>
-                                    </div>
+                            <div class="prototype-card">
+                                <div class="prototype-icon">
+                                    <i data-lucide="music"></i>
                                 </div>
-                                
-                                <div class="prototype-content relative z-10 p-8 pt-0">
-                                    <h3 class="text-2xl font-bold text-slate-800 mb-4 group-hover:text-blue-700 transition-colors">Tambor de Lata Ressonante</h3>
-                                    <p class="text-slate-700 leading-relaxed mb-6">Instrumento musical feito com latas grandes e pele sintética reciclada. <strong class="text-blue-700 bg-blue-100 px-2 py-1 rounded">Desenvolve coordenação motora</strong> e oferece liberação emocional através da música.</p>
-                                    
-                                    <div class="prototype-stats space-y-4">
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-blue-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M9 18V5l12-2v13"/>
-                                                    <circle cx="6" cy="18" r="3"/>
-                                                    <circle cx="18" cy="16" r="3"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-purple-600">6 tons</strong> diferentes</span>
-                                        </div>
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-blue-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700">Testado em <strong class="text-indigo-600">12 escolas</strong></span>
-                                        </div>
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-blue-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <line x1="12" y1="1" x2="12" y2="23"/>
-                                                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-emerald-600">R$ 8,00</strong> para construir</span>
-                                        </div>
+                                <h3 class="prototype-title">Tambor de Lata Ressonante</h3>
+                                <p class="prototype-description">
+                                    Instrumento musical feito com latas grandes e pele sintética reciclada. 
+                                    <mark>Desenvolve coordenação motora</mark> e oferece liberação emocional através da música.
+                                </p>
+                                <div class="prototype-stats">
+                                    <div class="stat-item">
+                                        <i data-lucide="volume-2"></i>
+                                        <span><strong>6 tons</strong> diferentes</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i data-lucide="building"></i>
+                                        <span>Testado em <strong>12 escolas</strong></span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i data-lucide="dollar-sign"></i>
+                                        <span><strong>R$ 8,00</strong> para construir</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="swiper-slide">
-                            <div class="prototype-card bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden group">
-                                <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 via-emerald-400/10 to-teal-400/10 group-hover:from-green-400/20 group-hover:via-emerald-400/20 group-hover:to-teal-400/20 transition-all duration-500"></div>
-                                
-                                <div class="prototype-visual relative p-8">
-                                    <div class="prototype-icon w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl shadow-green-500/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-                                        <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                                        </svg>
-                                    </div>
+                            <div class="prototype-card">
+                                <div class="prototype-icon">
+                                    <i data-lucide="bell"></i>
                                 </div>
-                                
-                                <div class="prototype-content relative z-10 p-8 pt-0">
-                                    <h3 class="text-2xl font-bold text-slate-800 mb-4 group-hover:text-green-700 transition-colors">Chocalho Multifuncional</h3>
-                                    <p class="text-slate-700 leading-relaxed mb-6">Feito com garrafas PET e diversos materiais internos (arroz, feijão, pedrinhas). <strong class="text-green-700 bg-green-100 px-2 py-1 rounded">Cada material produz um som único</strong>, estimulando discriminação auditiva.</p>
-                                    
-                                    <div class="prototype-stats space-y-4">
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-green-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-orange-600">8 sons</strong> distintos</span>
-                                        </div>
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-green-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M16 3h5v5"/>
-                                                    <path d="M8 3H3v5"/>
-                                                    <path d="M12 22v-8.3a4 4 0 00-1.172-2.872L3 3"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-emerald-600">100%</strong> reciclado</span>
-                                        </div>
-                                        <div class="proto-stat flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 border border-green-200/50">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <line x1="12" y1="1" x2="12" y2="23"/>
-                                                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                                                </svg>
-                                            </div>
-                                            <span class="font-semibold text-slate-700"><strong class="text-green-600">R$ 3,00</strong> para construir</span>
-                                        </div>
+                                <h3 class="prototype-title">Chocalho Multifuncional</h3>
+                                <p class="prototype-description">
+                                    Feito com garrafas PET e diversos materiais internos (arroz, feijão, pedrinhas). 
+                                    <mark>Cada material produz um som único</mark>, estimulando discriminação auditiva.
+                                </p>
+                                <div class="prototype-stats">
+                                    <div class="stat-item">
+                                        <i data-lucide="volume-1"></i>
+                                        <span><strong>8 sons</strong> distintos</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i data-lucide="recycle"></i>
+                                        <span><strong>100%</strong> reciclado</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i data-lucide="dollar-sign"></i>
+                                        <span><strong>R$ 3,00</strong> para construir</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Enhanced Pagination -->
-                    <div class="swiper-pagination !bottom-6 !left-1/2 !transform !-translate-x-1/2"></div>
-                </div>
-                
-                <!-- Premium Navigation Controls -->
-                <div class="carousel-controls flex justify-center gap-6 mt-8">
-                    <button class="carousel-btn prev-btn group bg-gradient-to-r from-slate-100 to-slate-200 hover:from-blue-50 hover:to-indigo-100 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-blue-300 transition-all duration-300 hover:scale-110 rounded-2xl px-6 py-3">
-                        <svg class="w-5 h-5 group-hover:text-blue-600 transition-colors mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                        <span class="font-semibold text-slate-700 group-hover:text-blue-600 transition-colors">Anterior</span>
-                    </button>
-                    
-                    <!-- Play/Pause Button -->
-                    <button class="carousel-btn play-pause-btn group bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 rounded-2xl px-6 py-3">
-                        <svg class="w-5 h-5 play-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5,3 19,12 5,21"/>
-                        </svg>
-                        <svg class="w-5 h-5 pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
-                            <rect x="6" y="4" width="4" height="16"/>
-                            <rect x="14" y="4" width="4" height="16"/>
-                        </svg>
-                        <span class="ml-2 font-semibold">Auto</span>
-                    </button>
-                    
-                    <button class="carousel-btn next-btn group bg-gradient-to-r from-slate-100 to-slate-200 hover:from-blue-50 hover:to-indigo-100 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-blue-300 transition-all duration-300 hover:scale-110 rounded-2xl px-6 py-3">
-                        <span class="font-semibold text-slate-700 group-hover:text-blue-600 transition-colors mr-2">Próximo</span>
-                        <svg class="w-5 h-5 group-hover:text-blue-600 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9,18 15,12 9,6"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Enhanced Slide Counter with Progress -->
-                <div class="text-center mt-6">
-                    <div class="inline-flex items-center gap-4 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg border border-slate-200">
-                        <span class="text-sm text-slate-600">
-                            <span class="current-slide font-bold text-blue-600">1</span> 
-                            <span class="mx-1">de</span> 
-                            <span class="total-slides font-bold text-slate-800">3</span>
-                        </span>
-                        <div class="w-16 h-2 bg-slate-200 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-300 slide-progress" style="width: 33.33%"></div>
-                        </div>
-                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
-
-            <!-- Protótipos Adicionais em Grid -->
-            <div class="additional-prototypes">
-                <h3>Mais Protótipos Inovadores</h3>
-                <div class="prototypes-grid">
-                    <div class="prototype-card mini">
-                        <div class="prototype-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
-                            </svg>
+            
+            <div class="additional-prototypes" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="additional-title">Mais Protótipos Inovadores</h3>
+                <div class="additional-grid">
+                    <div class="additional-card">
+                        <div class="additional-icon">
+                            <i data-lucide="lightbulb"></i>
                         </div>
-                        <h4>Sistema LED Colorido</h4>
-                        <p>Iluminação adaptativa com <strong>16 cores programáveis</strong></p>
-                        <span class="price-tag">R$ 25,00</span>
+                        <h4 class="additional-name">Sistema LED Colorido</h4>
+                        <p class="additional-description">Iluminação adaptativa com <strong>16 cores programáveis</strong></p>
+                        <span class="additional-price">R$ 25,00</span>
                     </div>
-                    <div class="prototype-card mini">
-                        <div class="prototype-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                <circle cx="8.5" cy="8.5" r="1.5"/>
-                                <polyline points="21,15 16,10 5,21"/>
-                            </svg>
+                    
+                    <div class="additional-card">
+                        <div class="additional-icon">
+                            <i data-lucide="grid-3x3"></i>
                         </div>
-                        <h4>Painel Tátil Exploratório</h4>
-                        <p>Superfície com <strong>20+ texturas</strong> diferentes</p>
-                        <span class="price-tag">R$ 18,00</span>
+                        <h4 class="additional-name">Painel Tátil Exploratório</h4>
+                        <p class="additional-description">Superfície com <strong>20+ texturas</strong> diferentes</p>
+                        <span class="additional-price">R$ 18,00</span>
                     </div>
-                    <div class="prototype-card mini">
-                        <div class="prototype-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 18V5l12-2v13"/>
-                                <circle cx="6" cy="18" r="3"/>
-                                <circle cx="18" cy="16" r="3"/>
-                            </svg>
+                    
+                    <div class="additional-card">
+                        <div class="additional-icon">
+                            <i data-lucide="music-2"></i>
                         </div>
-                        <h4>Orquestra Reciclada</h4>
-                        <p>Conjunto com <strong>12 instrumentos</strong> únicos</p>
-                        <span class="price-tag">R$ 45,00</span>
+                        <h4 class="additional-name">Orquestra Reciclada</h4>
+                        <p class="additional-description">Conjunto com <strong>12 instrumentos</strong> únicos</p>
+                        <span class="additional-price">R$ 45,00</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Conclusão -->
+    <!-- Conclusão Section -->
     <section id="conclusao" class="conclusion-section">
         <div class="container">
-            <h2>Uma Conclusão que É Apenas o Começo</h2>
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-badge">
+                    <i data-lucide="check-circle"></i>
+                    <span>Conclusão Transformadora</span>
+                </div>
+                <h2 class="section-title">Uma Conclusão que É Apenas o Começo</h2>
+            </div>
+            
             <div class="conclusion-content">
-                <p class="conclusion-text">
-                    Nosso estudo provou de forma <strong>inequívoca</strong> que um ambiente sensorial móvel e adaptado não é apenas viável - é <strong>transformador</strong>. Com investimento mínimo e materiais sustentáveis, conseguimos criar recursos que facilitam significativamente a inclusão e adaptação escolar das crianças na Educação Infantil.
+                <p class="conclusion-text" data-aos="fade-up" data-aos-delay="200">
+                    Nosso estudo provou de forma <strong>inequívoca</strong> que um ambiente sensorial 
+                    móvel e adaptado não é apenas viável - é <strong>transformador</strong>. Com investimento 
+                    mínimo e materiais sustentáveis, conseguimos criar recursos que facilitam 
+                    significativamente a inclusão e adaptação escolar das crianças na Educação Infantil.
                 </p>
                 
-                <div class="conclusion-highlights">
-                    <div class="highlight-card">
-                        <h4>🎯 Objetivos Superados</h4>
-                        <p>Todos os objetivos iniciais foram <strong>não apenas atingidos, mas superados</strong>, com resultados 34% acima das expectativas.</p>
+                <div class="conclusion-highlights" data-aos="fade-up" data-aos-delay="300">
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i data-lucide="target"></i>
+                        </div>
+                        <h4 class="highlight-title">Objetivos Superados</h4>
+                        <p class="highlight-description">
+                            Todos os objetivos iniciais foram <strong>não apenas atingidos, mas superados</strong>, 
+                            com resultados 34% acima das expectativas.
+                        </p>
                     </div>
-                    <div class="highlight-card">
-                        <h4>🌱 Sustentabilidade Comprovada</h4>
-                        <p><strong>2,3kg de resíduos reutilizados</strong> e economia de 80% comparado a materiais comerciais tradicionais.</p>
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i data-lucide="leaf"></i>
+                        </div>
+                        <h4 class="highlight-title">Sustentabilidade Comprovada</h4>
+                        <p class="highlight-description">
+                            <strong>2,3kg de resíduos reutilizados</strong> e economia de 80% comparado 
+                            a materiais comerciais tradicionais.
+                        </p>
                     </div>
-                    <div class="highlight-card">
-                        <h4>📈 Escalabilidade Validada</h4>
-                        <p>Metodologia testada e aprovada para <strong>replicação em larga escala</strong> no sistema público de ensino.</p>
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <h4 class="highlight-title">Escalabilidade Validada</h4>
+                        <p class="highlight-description">
+                            Metodologia testada e aprovada para <strong>replicação em larga escala</strong> 
+                            no sistema público de ensino.
+                        </p>
                     </div>
                 </div>
                 
-                <div class="future-impact">
-                    <h3>O Impacto que Vamos Gerar</h3>
-                    <p>Este projeto é apenas o <strong>primeiro passo</strong> de uma revolução educacional. Imagine:</p>
-                    <ul class="impact-list">
-                        <li><strong>10.000+ crianças</strong> beneficiadas nos próximos 3 anos</li>
-                        <li><strong>500+ professores</strong> capacitados em metodologia sensorial</li>
-                        <li><strong>100+ escolas</strong> implementando ambientes sensoriais</li>
-                        <li><strong>R$ 2.000.000</strong> em economia para o sistema público</li>
-                    </ul>
+                <div class="future-impact" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="impact-title">O Impacto que Vamos Gerar</h3>
+                    <p class="impact-description">
+                        Este projeto é apenas o <strong>primeiro passo</strong> de uma revolução educacional. Imagine:
+                    </p>
+                    
+                    <div class="impact-metrics">
+                        <div class="impact-metric">
+                            <span class="metric-number">10.000+</span>
+                            <span class="metric-label">crianças beneficiadas nos próximos 3 anos</span>
+                        </div>
+                        <div class="impact-metric">
+                            <span class="metric-number">500+</span>
+                            <span class="metric-label">professores capacitados em metodologia sensorial</span>
+                        </div>
+                        <div class="impact-metric">
+                            <span class="metric-number">100+</span>
+                            <span class="metric-label">escolas implementando ambientes sensoriais</span>
+                        </div>
+                        <div class="impact-metric">
+                            <span class="metric-number">R$ 2.000.000</span>
+                            <span class="metric-label">em economia para o sistema público</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="download-section">
-                    <h3>Leve Esta Transformação para Sua Escola</h3>
-                    <p class="download-intro">Todos os recursos necessários para implementar um ambiente sensorial completo estão disponíveis gratuitamente:</p>
-                    <div class="download-buttons">
-                        <button class="download-button">
-                            <span class="button-icon">📄</span>
-                            <div class="button-content">
-                                <span class="button-title">Manual Completo de Implementação</span>
-                                <span class="button-subtitle">45 páginas • Passo a passo ilustrado • PDF</span>
+                <div class="download-section" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="download-title">Leve Esta Transformação para Sua Escola</h3>
+                    <p class="download-description">
+                        Todos os recursos necessários para implementar um ambiente sensorial completo 
+                        estão disponíveis gratuitamente:
+                    </p>
+                    
+                    <div class="download-grid">
+                        <button class="download-btn primary">
+                            <div class="download-icon">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <div class="download-content">
+                                <span class="download-name">Manual Completo de Implementação</span>
+                                <span class="download-details">45 páginas • Passo a passo ilustrado • PDF</span>
                             </div>
                         </button>
-                        <button class="download-button secondary">
-                            <span class="button-icon">📋</span>
-                            <div class="button-content">
-                                <span class="button-title">Lista de Materiais e Custos</span>
-                                <span class="button-subtitle">Planilha detalhada • Fornecedores • Excel</span>
+                        
+                        <button class="download-btn secondary">
+                            <div class="download-icon">
+                                <i data-lucide="table"></i>
+                            </div>
+                            <div class="download-content">
+                                <span class="download-name">Lista de Materiais e Custos</span>
+                                <span class="download-details">Planilha detalhada • Fornecedores • Excel</span>
                             </div>
                         </button>
-                        <button class="download-button tertiary">
-                            <span class="button-icon">🎥</span>
-                            <div class="button-content">
-                                <span class="button-title">Vídeos de Construção</span>
-                                <span class="button-subtitle">12 tutoriais • Passo a passo • MP4</span>
+                        
+                        <button class="download-btn tertiary">
+                            <div class="download-icon">
+                                <i data-lucide="video"></i>
+                            </div>
+                            <div class="download-content">
+                                <span class="download-name">Vídeos de Construção</span>
+                                <span class="download-details">12 tutoriais • Passo a passo • MP4</span>
                             </div>
                         </button>
                     </div>
@@ -1006,465 +1015,209 @@
         </div>
     </section>
 
-    <!-- Referências -->
-    <section class="references-section bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 relative overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-indigo-600/5"></div>
-        <div class="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-indigo-500/20 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-br from-indigo-400/20 to-purple-500/20 rounded-full blur-3xl"></div>
-        
-        <div class="container mx-auto px-6 relative z-10">
-            <!-- Header -->
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-200/50 mb-6">
-                    <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
-                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
-                    </svg>
-                    <span class="text-sm font-medium text-slate-700">Embasamento Científico</span>
+    <!-- Referencias Section -->
+    <section class="references-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-badge">
+                    <i data-lucide="book-open"></i>
+                    <span>Embasamento Científico</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-800 via-blue-700 to-indigo-700 bg-clip-text text-transparent mb-4">
-                    Referências Bibliográficas
-                </h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
-                    Esta pesquisa foi fundamentada em <strong class="text-slate-800">estudos científicos rigorosos</strong> e metodologias comprovadas internacionalmente
+                <h2 class="section-title">Referências Bibliográficas</h2>
+                <p class="section-description">
+                    Esta pesquisa foi fundamentada em <strong>estudos científicos rigorosos</strong> 
+                    e metodologias comprovadas internacionalmente
                 </p>
             </div>
-
-            <!-- References Grid -->
-            <div class="references-list max-w-4xl mx-auto">
-                <div class="grid gap-6">
-                    <div class="group bg-white/70 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-6 hover:bg-white/90 hover:border-blue-300/60 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                                1
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-slate-700 leading-relaxed">
-                                    <strong class="text-slate-900">AYRES, A. J.</strong> 
-                                    <em class="text-blue-700">Sensory Integration and the Child</em>. 
-                                    Los Angeles: Western Psychological Services, 2005.
-                                </p>
-                                <div class="mt-3 inline-flex items-center gap-2 text-sm text-slate-500">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    Neurociência Sensorial
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group bg-white/70 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-6 hover:bg-white/90 hover:border-blue-300/60 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                                2
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-slate-700 leading-relaxed">
-                                    <strong class="text-slate-900">MINISTRY OF EDUCATION.</strong> 
-                                    <em class="text-indigo-700">Early Years Foundation Stage</em>. 
-                                    London: Department for Education, 2021.
-                                </p>
-                                <div class="mt-3 inline-flex items-center gap-2 text-sm text-slate-500">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    Políticas Educacionais
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group bg-white/70 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-6 hover:bg-white/90 hover:border-blue-300/60 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                                3
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-slate-700 leading-relaxed">
-                                    <strong class="text-slate-900">SMITH, J. et al.</strong> 
-                                    "Sensory Processing in Educational Settings." 
-                                    <em class="text-green-700">Journal of Educational Psychology</em>, 
-                                    v. 45, n. 3, p. 234-251, 2023.
-                                </p>
-                                <div class="mt-3 inline-flex items-center gap-2 text-sm text-slate-500">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    Psicologia Educacional
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group bg-white/70 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-6 hover:bg-white/90 hover:border-blue-300/60 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                                4
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-slate-700 leading-relaxed">
-                                    <strong class="text-slate-900">WORLD HEALTH ORGANIZATION.</strong> 
-                                    <em class="text-orange-700">Early Childhood Development</em>. 
-                                    Geneva: WHO Press, 2022.
-                                </p>
-                                <div class="mt-3 inline-flex items-center gap-2 text-sm text-slate-500">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    Desenvolvimento Infantil
-                                </div>
-                            </div>
-                        </div>
+            
+            <div class="references-list" data-aos="fade-up" data-aos-delay="200">
+                <div class="reference-item">
+                    <div class="reference-number">1</div>
+                    <div class="reference-content">
+                        <p class="reference-text">
+                            <strong>AYRES, A. J.</strong> 
+                            <em>Sensory Integration and the Child</em>. 
+                            Los Angeles: Western Psychological Services, 2005.
+                        </p>
+                        <div class="reference-tag">Neurociência Sensorial</div>
                     </div>
                 </div>
-
-                <!-- Statistics -->
-                <div class="mt-12 bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8">
-                    <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-slate-800 mb-2">Rigor Científico</h3>
-                        <p class="text-slate-600">Nossa pesquisa seguiu os mais altos padrões acadêmicos</p>
+                
+                <div class="reference-item">
+                    <div class="reference-number">2</div>
+                    <div class="reference-content">
+                        <p class="reference-text">
+                            <strong>MINISTRY OF EDUCATION.</strong> 
+                            <em>Early Years Foundation Stage</em>. 
+                            London: Department for Education, 2021.
+                        </p>
+                        <div class="reference-tag">Políticas Educacionais</div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-blue-600 mb-2">150+</div>
-                            <div class="text-sm text-slate-600">Estudos Analisados</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-indigo-600 mb-2">15</div>
-                            <div class="text-sm text-slate-600">Países Pesquisados</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-green-600 mb-2">47</div>
-                            <div class="text-sm text-slate-600">Professores Entrevistados</div>
-                        </div>
+                </div>
+                
+                <div class="reference-item">
+                    <div class="reference-number">3</div>
+                    <div class="reference-content">
+                        <p class="reference-text">
+                            <strong>SMITH, J. et al.</strong> 
+                            "Sensory Processing in Educational Settings." 
+                            <em>Journal of Educational Psychology</em>, 
+                            v. 45, n. 3, p. 234-251, 2023.
+                        </p>
+                        <div class="reference-tag">Psicologia Educacional</div>
                     </div>
+                </div>
+                
+                <div class="reference-item">
+                    <div class="reference-number">4</div>
+                    <div class="reference-content">
+                        <p class="reference-text">
+                            <strong>WORLD HEALTH ORGANIZATION.</strong> 
+                            <em>Early Childhood Development</em>. 
+                            Geneva: WHO Press, 2022.
+                        </p>
+                        <div class="reference-tag">Desenvolvimento Infantil</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="research-stats" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-item">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Estudos Analisados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">Países Pesquisados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">47</span>
+                    <span class="stat-label">Professores Entrevistados</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
+    <footer class="footer">
+        <div class="footer-background">
+            <div class="footer-pattern"></div>
+        </div>
         
-        <div class="container mx-auto px-6 py-16 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
-                <!-- Project Info -->
-                <div class="lg:col-span-2">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                                <path d="M2 17l10 5 10-5"/>
-                                <path d="M2 12l10 5 10-5"/>
-                            </svg>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-brand">
+                        <div class="brand-icon">
+                            <i data-lucide="brain"></i>
                         </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Ambiente Sensorial</h3>
-                            <p class="text-blue-200 text-sm">Transformando a Educação Infantil</p>
+                        <div class="brand-content">
+                            <h3 class="brand-title">Ambiente Sensorial</h3>
+                            <p class="brand-subtitle">Transformando a Educação Infantil</p>
                         </div>
                     </div>
                     
-                    <p class="text-slate-300 leading-relaxed mb-6 max-w-2xl">
+                    <p class="footer-description">
                         Este projeto representa um marco na pesquisa educacional brasileira, demonstrando como 
-                        <span class="text-blue-300 font-medium">ambientes sensoriais sustentáveis</span> podem revolucionar 
-                        a adaptação escolar das crianças.
+                        <strong>ambientes sensoriais sustentáveis</strong> podem revolucionar a adaptação escolar das crianças.
                     </p>
                     
-                    <div class="flex flex-wrap gap-4">
-                        <div class="flex items-center gap-2 text-sm text-slate-400">
-                            <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
+                    <div class="footer-tags">
+                        <span class="footer-tag">
+                            <i data-lucide="check-circle"></i>
                             Pesquisa Validada
-                        </div>
-                        <div class="flex items-center gap-2 text-sm text-slate-400">
-                            <svg class="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                            </svg>
+                        </span>
+                        <span class="footer-tag">
+                            <i data-lucide="microscope"></i>
                             Metodologia Científica
-                        </div>
-                        <div class="flex items-center gap-2 text-sm text-slate-400">
-                            <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M16 3h5v5"/>
-                                <path d="M8 3H3v5"/>
-                                <path d="M12 22v-8.3a4 4 0 00-1.172-2.872L3 3"/>
-                            </svg>
+                        </span>
+                        <span class="footer-tag">
+                            <i data-lucide="recycle"></i>
                             100% Sustentável
-                        </div>
+                        </span>
                     </div>
                 </div>
                 
-                <!-- Contact Info -->
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-6">Informações do Projeto</h4>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <svg class="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
-                                </svg>
+                <div class="footer-info">
+                    <h4 class="info-title">Informações do Projeto</h4>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i data-lucide="user"></i>
                             </div>
-                            <div>
-                                <p class="text-white font-medium">Giovanna Romeu Souza</p>
-                                <p class="text-slate-400 text-sm">Pesquisadora Principal</p>
-                                <p class="text-slate-400 text-sm">9º ano - Ensino Fundamental</p>
+                            <div class="info-content">
+                                <span class="info-name">Giovanna Romeu Souza</span>
+                                <span class="info-role">Pesquisadora Principal</span>
+                                <span class="info-detail">9º ano - Ensino Fundamental</span>
                             </div>
                         </div>
                         
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 bg-indigo-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-                                </svg>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i data-lucide="building"></i>
                             </div>
-                            <div>
-                                <p class="text-white font-medium">E.M.E.F Padre João Schiavo</p>
-                                <p class="text-slate-400 text-sm">Instituição de Ensino</p>
+                            <div class="info-content">
+                                <span class="info-name">E.M.E.F Padre João Schiavo</span>
+                                <span class="info-role">Instituição de Ensino</span>
                             </div>
                         </div>
                         
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/>
-                                </svg>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i data-lucide="calendar"></i>
                             </div>
-                            <div>
-                                <p class="text-white font-medium">2025</p>
-                                <p class="text-slate-400 text-sm">Ano de Desenvolvimento</p>
+                            <div class="info-content">
+                                <span class="info-name">2025</span>
+                                <span class="info-role">Ano de Desenvolvimento</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Impact Stats -->
-            <div class="border-t border-slate-700/50 pt-8 mb-8">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-blue-400 mb-1">47</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wide">Professores</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-indigo-400 mb-1">15</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wide">Protótipos</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-emerald-400 mb-1">150+</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wide">Estudos</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-purple-400 mb-1">92%</div>
-                        <div class="text-xs text-slate-400 uppercase tracking-wide">Aprovação</div>
-                    </div>
+            <div class="footer-stats">
+                <div class="footer-stat">
+                    <span class="stat-number">47</span>
+                    <span class="stat-label">Professores</span>
+                </div>
+                <div class="footer-stat">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">Protótipos</span>
+                </div>
+                <div class="footer-stat">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Estudos</span>
+                </div>
+                <div class="footer-stat">
+                    <span class="stat-number">92%</span>
+                    <span class="stat-label">Aprovação</span>
                 </div>
             </div>
             
-            <!-- Copyright -->
-            <div class="border-t border-slate-700/50 pt-8">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p class="text-slate-400 text-sm">
-                        &copy; 2025 <span class="text-white font-medium">Giovanna Romeu Souza</span> - 
-                        <span class="text-blue-300">E.M.E.F Padre João Schiavo</span>
-                    </p>
-                    <div class="flex items-center gap-4 text-xs text-slate-500">
-                        <span class="flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
-                            </svg>
-                            Feito com dedicação
-                        </span>
-                        <span class="flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                            </svg>
-                            Pesquisa de Excelência
-                        </span>
-                    </div>
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2025 <strong>Giovanna Romeu Souza</strong> - 
+                    <span class="institution">E.M.E.F Padre João Schiavo</span>
+                </p>
+                <div class="footer-credits">
+                    <span class="credit-item">
+                        <i data-lucide="heart"></i>
+                        Feito com dedicação
+                    </span>
+                    <span class="credit-item">
+                        <i data-lucide="star"></i>
+                        Pesquisa de Excelência
+                    </span>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Modal for Sense Details -->
-    <div id="sense-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modal-body"></div>
-        </div>
-    </div>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
+        <i data-lucide="arrow-up"></i>
+    </button>
 
     <script src="script.js"></script>
-    
-    <!-- Enhanced Carousel Functionality -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Enhanced Problem Carousel Progress
-            const problemProgressBars = document.querySelectorAll('.problem-carousel-container .carousel-progress');
-            const problemCurrentSlide = document.querySelector('.problem-carousel-container .current-slide');
-            
-            // Enhanced Prototypes Carousel Progress
-            const prototypeProgressBars = document.querySelectorAll('.prototypes-carousel-container .prototype-progress');
-            const prototypeCurrentSlide = document.querySelector('.prototypes-carousel-container .current-slide');
-            const slideProgressBar = document.querySelector('.slide-progress');
-            
-            // Update progress indicators
-            function updateProgressIndicators(swiper, progressBars, currentSlideElement, progressBar = null) {
-                const activeIndex = swiper.realIndex;
-                const totalSlides = swiper.slides.length;
-                
-                // Update progress bars
-                progressBars.forEach((bar, index) => {
-                    if (index === activeIndex) {
-                        bar.classList.add('active');
-                        if (bar.classList.contains('carousel-progress')) {
-                            bar.classList.remove('bg-gray-300');
-                            bar.classList.add('bg-blue-600');
-                        } else {
-                            bar.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                            bar.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-indigo-600');
-                        }
-                    } else {
-                        bar.classList.remove('active');
-                        if (bar.classList.contains('carousel-progress')) {
-                            bar.classList.add('bg-gray-300');
-                            bar.classList.remove('bg-blue-600');
-                        } else {
-                            bar.classList.add('bg-gray-300', 'hover:bg-gray-400');
-                            bar.classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-indigo-600');
-                        }
-                    }
-                });
-                
-                // Update current slide number
-                if (currentSlideElement) {
-                    currentSlideElement.textContent = activeIndex + 1;
-                }
-                
-                // Update progress bar width
-                if (progressBar) {
-                    const progressWidth = ((activeIndex + 1) / totalSlides) * 100;
-                    progressBar.style.width = progressWidth + '%';
-                }
-            }
-            
-            // Add click handlers for progress indicators
-            problemProgressBars.forEach((bar, index) => {
-                bar.addEventListener('click', () => {
-                    const problemSwiper = document.querySelector('.problem-swiper').swiper;
-                    if (problemSwiper) {
-                        problemSwiper.slideTo(index);
-                    }
-                });
-            });
-            
-            prototypeProgressBars.forEach((bar, index) => {
-                bar.addEventListener('click', () => {
-                    const prototypesSwiper = document.querySelector('.prototypes-swiper').swiper;
-                    if (prototypesSwiper) {
-                        prototypesSwiper.slideTo(index);
-                    }
-                });
-            });
-            
-            // Enhanced Play/Pause functionality
-            const playPauseBtn = document.querySelector('.play-pause-btn');
-            if (playPauseBtn) {
-                const playIcon = playPauseBtn.querySelector('.play-icon');
-                const pauseIcon = playPauseBtn.querySelector('.pause-icon');
-                let isPlaying = true;
-                
-                playPauseBtn.addEventListener('click', () => {
-                    const prototypesSwiper = document.querySelector('.prototypes-swiper').swiper;
-                    
-                    if (isPlaying) {
-                        prototypesSwiper.autoplay.stop();
-                        playIcon.classList.add('hidden');
-                        pauseIcon.classList.remove('hidden');
-                        playPauseBtn.classList.add('bg-red-500', 'hover:bg-red-600');
-                        playPauseBtn.classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-indigo-600', 'hover:from-blue-600', 'hover:to-indigo-700');
-                    } else {
-                        prototypesSwiper.autoplay.start();
-                        playIcon.classList.remove('hidden');
-                        pauseIcon.classList.add('hidden');
-                        playPauseBtn.classList.remove('bg-red-500', 'hover:bg-red-600');
-                        playPauseBtn.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-indigo-600', 'hover:from-blue-600', 'hover:to-indigo-700');
-                    }
-                    
-                    isPlaying = !isPlaying;
-                });
-            }
-            
-            // Wait for Swiper to initialize, then set up event listeners
-            setTimeout(() => {
-                const problemSwiper = document.querySelector('.problem-swiper')?.swiper;
-                const prototypesSwiper = document.querySelector('.prototypes-swiper')?.swiper;
-                
-                if (problemSwiper) {
-                    problemSwiper.on('slideChange', function() {
-                        updateProgressIndicators(this, problemProgressBars, problemCurrentSlide);
-                    });
-                    
-                    // Initial update
-                    updateProgressIndicators(problemSwiper, problemProgressBars, problemCurrentSlide);
-                }
-                
-                if (prototypesSwiper) {
-                    prototypesSwiper.on('slideChange', function() {
-                        updateProgressIndicators(this, prototypeProgressBars, prototypeCurrentSlide, slideProgressBar);
-                    });
-                    
-                    // Initial update
-                    updateProgressIndicators(prototypesSwiper, prototypeProgressBars, prototypeCurrentSlide, slideProgressBar);
-                }
-            }, 1000);
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                const problemSwiper = document.querySelector('.problem-swiper')?.swiper;
-                const prototypesSwiper = document.querySelector('.prototypes-swiper')?.swiper;
-                
-                if (e.key === 'ArrowLeft') {
-                    if (problemSwiper) problemSwiper.slidePrev();
-                    if (prototypesSwiper) prototypesSwiper.slidePrev();
-                } else if (e.key === 'ArrowRight') {
-                    if (problemSwiper) problemSwiper.slideNext();
-                    if (prototypesSwiper) prototypesSwiper.slideNext();
-                } else if (e.key === ' ') {
-                    e.preventDefault();
-                    if (playPauseBtn) playPauseBtn.click();
-                }
-            });
-            
-            // Touch gestures for mobile
-            let startY = 0;
-            let endY = 0;
-            
-            document.addEventListener('touchstart', function(e) {
-                startY = e.touches[0].clientY;
-            });
-            
-            document.addEventListener('touchend', function(e) {
-                endY = e.changedTouches[0].clientY;
-                const diff = startY - endY;
-                
-                if (Math.abs(diff) > 50) { // Minimum swipe distance
-                    const prototypesSwiper = document.querySelector('.prototypes-swiper')?.swiper;
-                    if (diff > 0) {
-                        // Swipe up - next slide
-                        if (prototypesSwiper) prototypesSwiper.slideNext();
-                    } else {
-                        // Swipe down - previous slide
-                        if (prototypesSwiper) prototypesSwiper.slidePrev();
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>
